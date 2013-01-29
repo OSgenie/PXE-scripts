@@ -15,7 +15,7 @@ fi
 
 function create_menu_header ()
 {
-cat > $menupath < EOF
+cat > $menupath <EOF
 MENU TITLE --== Main Menu ==--
 DEFAULT vesamenu.c32
 TIMEOUT 200 #this is optional - will start the default after 20 seconds
@@ -37,8 +37,7 @@ EOF
 
 function add_submenus ()
 {
-for subfolder in $tftpfolder/*
-do
+for subfolder in $tftpfolder/*; do
 directory=$(dirname $subfolder)
 foldername=$(basename "$subfolder")
 	for conf in $subfolder/*; do 
@@ -46,7 +45,7 @@ foldername=$(basename "$subfolder")
 	extension=${fullname##*.}
 	name=$(basename $conf .$extension)
 	if [ $extension == conf ]; then
-		cat > $menupath << EOF
+		cat > $menupath <<EOF
 		LABEL $name
 		MENU LABEL $name --->
 		kernel vesamenu.c32
@@ -60,7 +59,7 @@ foldername=$(basename "$subfolder")
 		extension=${fullname##*.}
 		name=$(basename $menu .$extension)
 		if [ $extension == conf ]; then
-			cat > $menupath << EOF
+			cat > $menupath <<EOF
 			LABEL $name
 			MENU LABEL $name --->
 			kernel vesamenu.c32

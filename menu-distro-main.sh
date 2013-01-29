@@ -3,7 +3,6 @@
 # kirtley@osgenie.com
 # June 24 2012
 tftpfolder=/var/lib/tftpboot
-menus=$( ls $tftpfolder/menus )
 
 function check_for_sudo ()
 {
@@ -42,6 +41,7 @@ EOM
 function refresh_distro_menus ()
 {
 rm $tftpfolder/menus/*.conf
+menus=$( ls $tftpfolder/menus )
 for folder in $menus; do
     generate_distro_menu_header
     for conf in $tftpfolder/menus/$folder/*; do 

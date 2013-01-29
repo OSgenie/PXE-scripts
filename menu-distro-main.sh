@@ -34,11 +34,11 @@ EOM
 		if [ $extension == conf ]; then
 			echo $fullname
 			cat >> $menupath <<'EOM'
-			LABEL $name
-				MENU LABEL $name --->
+			LABEL ${name}
+				MENU LABEL ${name} --->
 			   kernel vesamenu.c32
-			   append /menus/$folder/$fullname
-EOM
+			   append /menus/${folder}/${fullname}
+EOM	
 		fi
 	done
 done

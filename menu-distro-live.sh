@@ -78,4 +78,4 @@ EOM
     done
 done
 done
-umount /mnt/pxeboot
+umount /mnt/

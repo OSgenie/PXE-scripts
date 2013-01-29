@@ -39,8 +39,9 @@ append /menus/$folder/$fullname
 EOM
 }
 
-function create_distro_menus ()
+function refresh_distro_menus ()
 {
+rm $tftpfolder/menus/*.conf
 for folder in $menus; do
     generate_distro_menu_header
     for conf in $tftpfolder/menus/$folder/*; do 
@@ -54,5 +55,5 @@ for folder in $menus; do
 done
 }
 
-rm $tftpfolder/menus/*.conf
-create_distro_menus
+check_for_sudo
+refresh_distro_menus

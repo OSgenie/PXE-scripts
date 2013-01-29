@@ -36,8 +36,8 @@ mkdir -p $tftpfolder/$kernelpath
 cp -uv $subfolder/casper/vmlinuz $tftpfolder/$kernelpath/
 cp -uv $subfolder/casper/initrd.lz $tftpfolder/$kernelpath/
 cat >> $menupath << EOM
-LABEL $revdate >> $menupath
-MENU LABEL $revdate >> $menupath
+LABEL $revdate
+MENU LABEL $revdate
     kernel $kernelpath/vmlinuz
     append initrd=$kernelpath/initrd.lz noprompt boot=casper url=$seedpath/$seedfile netboot=nfs nfsroot=$nfsrootpath/$distro/$revision ro toram -
 EOM
@@ -50,8 +50,8 @@ mkdir -p $tftpfolder/$kernelpath
 cp -uv $subfolder/casper/vmlinuz $tftpfolder/$kernelpath/
 cp -uv $subfolder/casper/initrd.gz $tftpfolder/$kernelpath/
 cat >> $menupath << EOM
-LABEL $revdate >> $menupath
-MENU LABEL $revdate >> $menupath
+LABEL $revdate
+MENU LABEL $revdate
     kernel $kernelpath/vmlinuz
     append initrd=$kernelpath/initrd.gz noprompt boot=casper url=$seedpath/$seedfile netboot=nfs nfsroot=$nfsrootpath/$distro/$revision ro toram -
 EOM

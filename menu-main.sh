@@ -21,7 +21,7 @@ DEFAULT vesamenu.c32
 TIMEOUT 200 #this is optional - will start the default after 20 seconds
 ONTIMEOUT BootLocal
 PROMPT 0
-
+#
 LABEL kirtley-workstation
 MENU DEFAULT
 MENU LABEL Kirtley Workstation
@@ -31,7 +31,7 @@ APPEND root=/dev/nfs initrd=pxe-kw/initrd.img-3.2.0-29-generic-pae nfsroot=192.1
 LABEL BootLocal
 MENU LABEL Local Boot
 localboot 0
-
+#
 EOM
 }
 
@@ -50,7 +50,7 @@ foldername=$(basename "$subfolder")
 		MENU LABEL $name --->
 		kernel vesamenu.c32
 		append /$foldername/$fullname
-		
+		#
 		EOM
 	elif [ $fullname == menus ]; then
 		for menu in $subfolder/menus/*; do 
@@ -64,7 +64,7 @@ foldername=$(basename "$subfolder")
 			MENU LABEL $name --->
 			kernel vesamenu.c32
 			append $foldername/menus/$fullname
-			
+			#
 			EOM
 		fi
 		done			

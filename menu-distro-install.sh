@@ -37,7 +37,7 @@ EOM
 	revisionarray=$( ls -r $folder )
 	for revision in $revisionarray
 	do
-	if [ ! "$revision" = "stock" ]; then
+	if [ ! "$revision" = "gold" ]; then
 	revdate=$(date --rfc-3339=seconds -d @$revision)
 	else
 	revdate=$revision

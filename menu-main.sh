@@ -58,7 +58,6 @@ EOM
 
 function generate_conf_menus ()
 {
-rm $tftpfolder/menus/*.conf
 for subfolder in $tftpfolder/*; do
     directory=$(dirname $subfolder)
     foldername=$(basename "$subfolder")

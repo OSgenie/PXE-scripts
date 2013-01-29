@@ -71,7 +71,21 @@ MENU LABEL $revdate
     append initrd=$kernelpath/initrd.gz noprompt boot=casper only-ubiquity url=$seedpath/$seedfile oem-config/enable=true netboot=nfs nfsroot=$nfsrootpath/$distro/$revision ro toram -
 
 EOM
-		elif [ -e "$subfolder/install" ]; then
+		elif [ -e "$subfolder/install/initrd.gz" ]; then
+		  kernelpath=$bootfolder/install
+		  echo "$revision - install!"
+		  mkdir -p $tftpfolder/$kernelpath
+		  cp -uv $subfolder/install/vmlinuz $tftpfolder/$kernelpath/
+		  cp -uv $subfolder/install/initrd.gz $tftpfolder/$kernelpath/
+		  cat >> $menupath << EOM
+LABEL $revision
+MENU LABEL $revision
+    kernel $kernelpath/linux
+    append initrd=$kernelpath/initrd.gz noprompt netboot=nfs url=$seedpath/$seedfile root=/dev/nfs nfsroot=$nfspath/$distro/$revision/ ip=dhcp rw
+
+EOM
+        break
+        elif [ -e "$subfolder/install" ]; then
 		  if [[ $distro == *amd64* ]]; then
 		  cpu=amd64
 		  else

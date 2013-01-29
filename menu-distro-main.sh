@@ -18,7 +18,7 @@ menusarray=$( ls $tftpfolder/menus )
 for folder in $menusarray; do
 	echo $folder
 	menupath="$tftpfolder/menus/$folder.conf"
-	cat > $menupath <<'EOM'
+	cat > $menupath <<EOM
 	MENU TITLE --== $folder Menu ==--
 	#
 	LABEL rootmenu
@@ -33,7 +33,7 @@ EOM
 		name=$(basename $conf .$extension)
 		if [ $extension == conf ]; then
 			echo $fullname
-			cat >> $menupath <<'EOM'
+			cat >> $menupath <<EOM
 			LABEL ${name}
 				MENU LABEL ${name} --->
 			   kernel vesamenu.c32

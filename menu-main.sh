@@ -45,7 +45,7 @@ foldername=$(basename "$subfolder")
 	extension=${fullname##*.}
 	name=$(basename $conf .$extension)
 	if [ $extension == conf ]; then
-		cat >> $menupath << 'EOM'
+		cat >> $menupath << EOM
 			LABEL ${name}
 				MENU LABEL ${name} --->
 			   kernel vesamenu.c32
@@ -59,7 +59,7 @@ EOM
 		extension=${fullname##*.}
 		name=$(basename $menu .$extension)
 		if [ $extension == conf ]; then
-			cat >> $menupath << 'EOM'
+			cat >> $menupath << EOM
 			LABEL ${name}
 				MENU LABEL ${name} --->
 			   kernel vesamenu.c32

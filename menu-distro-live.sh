@@ -38,7 +38,7 @@ EOM
 # PXE boot menu entry for each iso
 revisionarray=$( ls -r $folder )
 for revision in $revisionarray; do
-    if [ ! "$revision" = "stock" ]; then
+    if [ ! "$revision" = "gold" ]; then
         revdate=$(date --rfc-3339=seconds -d @$revision)
     else
         revdate=$revision
@@ -53,7 +53,7 @@ for revision in $revisionarray; do
             mkdir -p $tftpfolder/$kernelpath
             cp -uv $subfolder/casper/vmlinuz $tftpfolder/$kernelpath/
             cp -uv $subfolder/casper/initrd.lz $tftpfolder/$kernelpath/
-            cat >> $menupath < EOM
+            cat >> $menupath << EOM
 LABEL $revdate >> $menupath
 MENU LABEL $revdate >> $menupath
     kernel $kernelpath/vmlinuz

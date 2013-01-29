@@ -98,7 +98,7 @@ MENU LABEL $revdate
 EOM
 }
 
-function generate_menu ()
+function generate_install_menu ()
 {
 mount -t nfs4 $nfspath /mnt/
 for folder in /mnt/install/*; do
@@ -134,5 +134,6 @@ for folder in /mnt/install/*; do
 done
 umount /mnt
 }
+
 check_for_sudo
-generate_menu
+generate_install_menu

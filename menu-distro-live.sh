@@ -14,7 +14,7 @@ fi
 
 check_for_sudo
 
-nfshost=192.168.11.88
+nfshost=192.168.11.3
 nfspath=$nfshost:/pxeboot
 nfsrootpath=$nfshost:/var/nfs/pxeboot
 tftpfolder=/var/lib/tftpboot

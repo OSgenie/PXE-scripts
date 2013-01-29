@@ -11,7 +11,7 @@ if [ $UID != 0 ]; then
 fi
 }
 
-nfshost=192.168.11.88
+nfshost=192.168.11.3
 nfspath=$nfshost:/pxeboot
 nfsrootpath=$nfshost:/var/nfs/pxeboot
 tftpfolder=/var/lib/tftpboot

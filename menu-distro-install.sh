@@ -120,16 +120,12 @@ for folder in /mnt/install/*; do
     		bootfolder=isodistro/$distro/$revision
     		if [ -e "$subfolder/casper/initrd.lz" ]; then
                 casper_initrd_lz
-        		break
     		elif [ -e "$subfolder/casper/initrd.gz" ]; then
                 casper_initrd_gz
-                break
     		elif [ -e "$subfolder/install/initrd.gz" ]; then
                 install_initrd_gz
-                break
             elif [ -e "$subfolder/install" ]; then
                 install_netboot
-        		break
     		else 
     		  echo "ERROR - $distro-$revision"
     		fi

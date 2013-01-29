@@ -38,7 +38,7 @@ EOM
 				MENU LABEL ${name} --->
 			   kernel vesamenu.c32
 			   append /menus/${folder}/${fullname}
-EOM	
+EOM
 		fi
 	done
 done

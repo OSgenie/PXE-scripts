@@ -58,6 +58,7 @@ MENU LABEL $revdate
     kernel $kernelpath/vmlinuz
     append initrd=$kernelpath/initrd.lz noprompt boot=casper only-ubiquity url=$seedpath/$seedfile oem-config/enable=true netboot=nfs nfsroot=$nfsrootpath/$distro/$revision ro toram -
 EOM
+		break
 		elif [ -e "$subfolder/casper/initrd.gz" ]; then
 			kernelpath=$bootfolder/casper
 		  	echo "$revision - casper!"
@@ -71,6 +72,7 @@ MENU LABEL $revdate
     append initrd=$kernelpath/initrd.gz noprompt boot=casper only-ubiquity url=$seedpath/$seedfile oem-config/enable=true netboot=nfs nfsroot=$nfsrootpath/$distro/$revision ro toram -
 
 EOM
+		break
 		elif [ -e "$subfolder/install/initrd.gz" ]; then
 		  kernelpath=$bootfolder/install
 		  echo "$revision - install!"
@@ -103,6 +105,7 @@ MENU LABEL $revdate
     append initrd=$kernelpath/initrd.gz noprompt netboot=nfs url=$seedpath/$seedfile root=/dev/nfs nfsroot=$nfspath/$distro/$revision/ ip=dhcp rw
 
 EOM
+		break
 		else 
 		  echo "ERROR - $distro-$revision"
 		fi

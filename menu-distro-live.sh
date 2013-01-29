@@ -59,6 +59,7 @@ MENU LABEL $revdate >> $menupath
     kernel $kernelpath/vmlinuz
     append initrd=$kernelpath/initrd.lz noprompt boot=casper url=$seedpath/$seedfile netboot=nfs nfsroot=$nfsrootpath/$distro/$revision ro toram -
 EOM
+        break
         elif [ -e "$subfolder/casper/initrd.gz" ]; then
             kernelpath=$bootfolder/casper
             echo "$revision - casper!"
@@ -71,6 +72,7 @@ MENU LABEL $revdate >> $menupath
     kernel $kernelpath/vmlinuz
     append initrd=$kernelpath/initrd.gz noprompt boot=casper url=$seedpath/$seedfile netboot=nfs nfsroot=$nfsrootpath/$distro/$revision ro toram -
 EOM
+        break
         else 
             echo " not a live cd"
         rm $menupath  

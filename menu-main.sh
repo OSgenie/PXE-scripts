@@ -1,7 +1,6 @@
 #!/bin/bash
 # Kirtley Wienbroer
 # kirtley@osgenie.com
-# June 24 2012
 tftpfolder=/var/lib/tftpboot
 menupath="$tftpfolder/mainmenu.conf"
 
@@ -52,6 +51,7 @@ kernel vesamenu.c32
 append /$foldername/$fullname
 #
 EOM
+break
 elif [ $fullname == menus ]; then
 for menu in $subfolder/menus/*; do 
 echo $menu

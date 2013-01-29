@@ -12,14 +12,14 @@ fi
 }
 
 nfshost=192.168.11.3
-nfspath=$nfshost:/pxeboot
+nfspath=$nfshost:/pxeboot/
 nfsrootpath=$nfshost:/var/nfs/pxeboot
 tftpfolder=/var/lib/tftpboot
 seedpath=http://192.168.11.10/preseed
 seedfile="ubuntu.seed"
 
-mount -t nfs4 $nfspath /mnt/pxeboot
-for folder in /mnt/pxeboot/*; do
+mount -t nfs4 $nfspath /mnt/
+for folder in /mnt/stock/*; do
 distro=$(basename "$folder")
 menupath="$tftpfolder/menus/install/$distro.conf"
 # create distro PXE boot menu

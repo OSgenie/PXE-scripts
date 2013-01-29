@@ -15,7 +15,7 @@ fi
 
 function create_menu_header ()
 {
-cat > $menupath <EOF
+cat > $menupath <'EOM'
 MENU TITLE --== Main Menu ==--
 DEFAULT vesamenu.c32
 TIMEOUT 200 #this is optional - will start the default after 20 seconds
@@ -32,7 +32,7 @@ LABEL BootLocal
 MENU LABEL Local Boot
 localboot 0
 
-EOF
+EOM
 }
 
 function add_submenus ()
@@ -45,13 +45,13 @@ foldername=$(basename "$subfolder")
 	extension=${fullname##*.}
 	name=$(basename $conf .$extension)
 	if [ $extension == conf ]; then
-		cat > $menupath <<EOF
+		cat > $menupath <<'EOM'
 		LABEL $name
 		MENU LABEL $name --->
 		kernel vesamenu.c32
 		append /$foldername/$fullname
 		
-		EOF
+		EOM
 	elif [ $fullname == menus ]; then
 		for menu in $subfolder/menus/*; do 
 		echo $menu
@@ -59,13 +59,13 @@ foldername=$(basename "$subfolder")
 		extension=${fullname##*.}
 		name=$(basename $menu .$extension)
 		if [ $extension == conf ]; then
-			cat > $menupath <<EOF
+			cat > $menupath <<'EOM'
 			LABEL $name
 			MENU LABEL $name --->
 			kernel vesamenu.c32
 			append $foldername/menus/$fullname
 			
-			EOF
+			EOM
 		fi
 		done			
 	fi

@@ -26,7 +26,7 @@ for folder in $menusarray; do
 	        kernel vesamenu.c32
 	        append mainmenu.conf
 	#
-	EOM
+EOM
 	for conf in $tftpfolder/menus/$folder/*; do 
 		fullname=$(basename $conf)
 		extension=${fullname##*.}

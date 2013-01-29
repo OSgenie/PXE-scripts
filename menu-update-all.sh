@@ -1,8 +1,7 @@
 #!/bin/bash
-githome=/home/kirtley/git
-gitdir=pxeserver
+githome="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-$githome/$gitdir/menu-distro-install.sh
-$githome/$gitdir/menu-distro-live.sh
-$githome/$gitdir/menu-distro-main.sh
-$githome/$gitdir/menu-main.sh
+$githome/menu-distro-install.sh
+$githome/menu-distro-live.sh
+$githome/menu-distro-main.sh
+$githome/menu-main.sh

@@ -51,7 +51,7 @@ foldername=$(basename "$subfolder")
 		kernel vesamenu.c32
 		append /$foldername/$fullname
 		#
-		EOM
+EOM
 	elif [ $fullname == menus ]; then
 		for menu in $subfolder/menus/*; do 
 		echo $menu
@@ -65,7 +65,7 @@ foldername=$(basename "$subfolder")
 			kernel vesamenu.c32
 			append $foldername/menus/$fullname
 			#
-			EOM
+EOM
 		fi
 		done			
 	fi

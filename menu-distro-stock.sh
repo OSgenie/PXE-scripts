@@ -22,8 +22,7 @@ seedpath=http://192.168.11.10/preseed
 seedfile="ubuntu.seed"
 
 mount -t nfs4 $nfspath /mnt/pxeboot
-for folder in /mnt/stock/*
-do
+for folder in /mnt/stock/*; do
 distro=$(basename "$folder")
 menupath="$tftpfolder/menus/stock/$distro.conf"
 # create distro PXE boot menu
@@ -38,11 +37,9 @@ MENU LABEL <---- Stock Menu
 EOM
 	# PXE boot menu entry for each iso
 	revisionarray=$( ls -r $folder )
-	for revision in $revisionarray
-	do
+	for revision in $revisionarray; 	do
 	subfolderarray=$folder/$revision
-		for subfolder in $subfolderarray
-		do
+		for subfolder in $subfolderarray; do
 		revision=$(basename "$subfolder")
 		bootfolder=isodistro/stock/$distro/$revision
 		if [ -e "$subfolder/casper/initrd.lz" ]; then
@@ -58,6 +55,7 @@ MENU LABEL $revision
     append initrd=$kernelpath/initrd.lz noprompt boot=casper url=$seedpath/$seedfile netboot=nfs nfsroot=$nfsrootpath/$distro/$revision ro toram -
 		   
 EOM
+		break
 		elif [ -e "$subfolder/casper/initrd.gz" ]; then
 			kernelpath=$bootfolder/casper
 		  	echo "$revision - casper!"
@@ -71,6 +69,7 @@ MENU LABEL $revision
     append initrd=$kernelpath/initrd.gz noprompt boot=casper url=$seedpath/$seedfile netboot=nfs nfsroot=$nfsrootpath/$distro/$revision ro toram -
 
 EOM
+		break
 		elif [ -e "$subfolder/install/initrd.gz" ]; then
 		  kernelpath=$bootfolder/install
 		  echo "$revision - install!"
@@ -83,7 +82,9 @@ MENU LABEL $revision
     kernel $kernelpath/linux
     append initrd=$kernelpath/initrd.gz noprompt netboot=nfs url=$seedpath/$seedfile root=/dev/nfs nfsroot=$nfspath/$distro/$revision/ ip=dhcp rw
 
-EOM		elif [ -e "$subfolder/install" ]; then
+EOM
+        break
+        elif [ -e "$subfolder/install" ]; then
 		  if [[ $distro == *amd64* ]]; then
 		      cpu=amd64
 		  elif [[ $distro == *i386* ]]; then
@@ -103,6 +104,7 @@ MENU LABEL $revision
     append initrd=$kernelpath/initrd.gz noprompt netboot=nfs url=$seedpath/$seedfile root=/dev/nfs nfsroot=$nfspath/$distro/$revision/ ip=dhcp rw
 
 EOM
+		break
 		else 
 		  echo "ERROR - $distro-$revision"
 		  rm $menupath  

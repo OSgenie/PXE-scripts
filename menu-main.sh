@@ -75,14 +75,4 @@ done
 
 check_for_sudo
 create_menu_header
-#add_submenus
-
-cat > /tmp/test << 'EOS'
-asdfaasdf
-asdfasdf
-asdf
-asd
-fasd
-factorsdfa
-sdfasdfasdf
-EOS
+add_submenus

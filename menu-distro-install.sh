@@ -18,6 +18,7 @@ fi
 
 function distro_title ()
 {
+echo "Title"
 cat > $menupath << EOM
 MENU TITLE --== $distro ==-- 
  
@@ -31,6 +32,7 @@ EOM
 
 function casper_initrd_lz ()
 {
+echo "casper_initrd_lz"
 kernelpath=$bootfolder/casper
 mkdir -p $tftpfolder/$kernelpath
 cp -uv $subfolder/casper/vmlinuz $tftpfolder/$kernelpath/
@@ -45,6 +47,7 @@ EOM
 
 function casper_initrd_gz ()
 {
+echo "casper_initrd_gz"
 kernelpath=$bootfolder/casper
 mkdir -p $tftpfolder/$kernelpath
 cp -uv $subfolder/casper/vmlinuz $tftpfolder/$kernelpath/
@@ -60,6 +63,7 @@ EOM
 
 function install_initrd_gz ()
 {
+echo "install_initrd_gz"
 kernelpath=$bootfolder/install
 mkdir -p $tftpfolder/$kernelpath
 cp -uv $subfolder/install/vmlinuz $tftpfolder/$kernelpath/
@@ -75,6 +79,7 @@ EOM
 
 function install_netboot ()
 {
+echo "install_netboot"
 if [[ $distro == *amd64* ]]; then
     cpu=amd64
 else

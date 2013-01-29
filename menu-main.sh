@@ -8,8 +8,8 @@ menupath="$tftpfolder/mainmenu.conf"
 function check_for_sudo ()
 {
 if [ $UID != 0 ]; then
-		echo "You need root privileges"
-		exit 2
+        echo "You need root privileges"
+        exit 2
 fi
 }
 
@@ -40,36 +40,36 @@ function add_submenus ()
 for subfolder in $tftpfolder/*; do
 directory=$(dirname $subfolder)
 foldername=$(basename "$subfolder")
-	for conf in $subfolder/*; do 
-	fullname=$(basename $conf)
-	extension=${fullname##*.}
-	name=$(basename $conf .$extension)
-	if [ $extension == conf ]; then
-		cat >> $menupath << EOM
-			LABEL ${name}
-				MENU LABEL ${name} --->
-			   kernel vesamenu.c32
-			   append /menus/${folder}/${fullname}
-		#
-EOM
-	elif [ $fullname == menus ]; then
-		for menu in $subfolder/menus/*; do 
-		echo $menu
-		fullname=$(basename $menu)
-		extension=${fullname##*.}
-		name=$(basename $menu .$extension)
-		if [ $extension == conf ]; then
-			cat >> $menupath << EOM
-			LABEL ${name}
-				MENU LABEL ${name} --->
-			   kernel vesamenu.c32
-			   append /menus/${folder}/${fullname}
-			#
-EOM
-		fi
-		done			
-	fi
-	done
+    for conf in $subfolder/*; do 
+    fullname=$(basename $conf)
+    extension=${fullname##*.}
+    name=$(basename $conf .$extension)
+    if [ $extension == conf ]; then
+        cat >> $menupath << EOM
+        LABEL $name
+        MENU LABEL $name --->
+        kernel vesamenu.c32
+        append /$foldername/$fullname
+        #
+        EOM
+    elif [ $fullname == menus ]; then
+        for menu in $subfolder/menus/*; do 
+        echo $menu
+        fullname=$(basename $menu)
+        extension=${fullname##*.}
+        name=$(basename $menu .$extension)
+        if [ $extension == conf ]; then
+            cat >> $menupath << EOM
+            LABEL $name
+            MENU LABEL $name --->
+            kernel vesamenu.c32
+            append $foldername/menus/$fullname
+            #
+            EOM
+        fi
+        done            
+    fi
+    done
 done
 }
 

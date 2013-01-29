@@ -15,7 +15,7 @@ fi
 
 function create_menu_header ()
 {
-cat > $menupath <'EOM'
+cat > $menupath <<'EOM'
 "MENU TITLE --== Main Menu ==--"
 "DEFAULT vesamenu.c32"
 "TIMEOUT 200 #this is optional - will start the default after 20 seconds"
@@ -74,7 +74,7 @@ done
 }
 
 check_for_sudo
-#create_menu_header
+create_menu_header
 #add_submenus
 
 cat > /tmp/test << 'EOS'

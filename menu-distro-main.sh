@@ -1,7 +1,6 @@
 #!/bin/bash
 # Kirtley Wienbroer
 # kirtley@osgenie.com
-# June 24 2012
 tftpfolder=/var/lib/tftpboot
 
 function check_for_sudo ()

@@ -58,6 +58,7 @@ EOM
 
 function generate_conf_menus ()
 {
+rm $tftpfolder/menus/*.conf
 for subfolder in $tftpfolder/*; do
     directory=$(dirname $subfolder)
     foldername=$(basename "$subfolder")
@@ -67,7 +68,6 @@ for subfolder in $tftpfolder/*; do
         name=$(basename $conf .$extension)
         if [ $extension == conf ]; then
             conf_menu
-            break
         elif [ $fullname == menus ]; then
             for menu in $subfolder/menus/*; do 
                 echo $menu
@@ -76,7 +76,6 @@ for subfolder in $tftpfolder/*; do
                 name=$(basename $menu .$extension)
                 if [ $extension == conf ]; then
                 conf_submenus
-                break
                 fi
             done            
         fi

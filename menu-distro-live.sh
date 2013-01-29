@@ -79,10 +79,8 @@ for folder in /mnt/live/*; do
             bootfolder=isodistro/$distro/$revision
             if [ -e "$subfolder/casper/initrd.lz" ]; then
                 casper_initrd_lz
-                break
             elif [ -e "$subfolder/casper/initrd.gz" ]; then
                 casper_initrd_gz
-                break
             else 
                 echo " not a live cd"
             rm $menupath  

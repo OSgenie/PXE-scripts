@@ -112,16 +112,12 @@ distro_title
 		bootfolder=isodistro/stock/$distro/$revision
 		if [ -e "$subfolder/casper/initrd.lz" ]; then
             casper_init_lz
-    		break
 		elif [ -e "$subfolder/casper/initrd.gz" ]; then
             casper_initrd_gz
-            break
 		elif [ -e "$subfolder/install/initrd.gz" ]; then
             install_initrd_gz
-            break
         elif [ -e "$subfolder/install" ]; then
             install_netboot
-            break
 		else 
 		  echo "ERROR - $distro-$revision"
 		  rm $menupath  

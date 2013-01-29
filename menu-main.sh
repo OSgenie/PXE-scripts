@@ -12,7 +12,7 @@ if [ $UID != 0 ]; then
 fi
 }
 
-function create_menu_header ()
+function generate_main_menu_header ()
 {
 cat > $menupath <<'EOM'
 MENU TITLE --== Main Menu ==--
@@ -34,16 +34,8 @@ localboot 0
 EOM
 }
 
-function add_submenus ()
+function conf_menu ()
 {
-for subfolder in $tftpfolder/*; do
-directory=$(dirname $subfolder)
-foldername=$(basename "$subfolder")
-for conf in $subfolder/*; do 
-fullname=$(basename $conf)
-extension=${fullname##*.}
-name=$(basename $conf .$extension)
-if [ $extension == conf ]; then
 cat >> $menupath << EOM
 LABEL $name
 MENU LABEL $name --->
@@ -51,14 +43,10 @@ kernel vesamenu.c32
 append /$foldername/$fullname
 #
 EOM
-break
-elif [ $fullname == menus ]; then
-for menu in $subfolder/menus/*; do 
-echo $menu
-fullname=$(basename $menu)
-extension=${fullname##*.}
-name=$(basename $menu .$extension)
-if [ $extension == conf ]; then
+}
+
+function conf_submenus ()
+{
 cat >> $menupath << EOM
 LABEL $name
 MENU LABEL $name --->
@@ -66,13 +54,34 @@ kernel vesamenu.c32
 append $foldername/menus/$fullname
 #
 EOM
-fi
-done            
-fi
-done
+}
+
+function generate_conf_menus ()
+{
+for subfolder in $tftpfolder/*; do
+    directory=$(dirname $subfolder)
+    foldername=$(basename "$subfolder")
+    for conf in $subfolder/*; do 
+        fullname=$(basename $conf)
+        extension=${fullname##*.}
+        name=$(basename $conf .$extension)
+        if [ $extension == conf ]; then
+            conf_menu
+        elif [ $fullname == menus ]; then
+            for menu in $subfolder/menus/*; do 
+                echo $menu
+                fullname=$(basename $menu)
+                extension=${fullname##*.}
+                name=$(basename $menu .$extension)
+                if [ $extension == conf ]; then
+                conf_submenus
+                fi
+            done            
+        fi
+    done
 done
 }
 
 check_for_sudo
-create_menu_header
-add_submenus
+generate_main_menu_header
+generate_conf_menus

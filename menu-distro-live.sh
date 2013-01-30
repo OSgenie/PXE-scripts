@@ -76,7 +76,7 @@ for folder in /mnt/live/*; do
         subfolderarray=$folder/$revision
         for subfolder in $subfolderarray; do
             revision=$(basename "$subfolder")
-            bootfolder=isodistro/$distro/$revision
+            bootfolder=boot/$distro/$revision
             if [ -e "$subfolder/casper/initrd.lz" ]; then
                 live_casper_initrd_lz
             elif [ -e "$subfolder/casper/initrd.gz" ]; then

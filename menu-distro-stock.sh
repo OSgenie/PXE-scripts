@@ -109,7 +109,7 @@ distro_title
 	subfolderarray=$folder/$revision
 		for subfolder in $subfolderarray; do
 		revision=$(basename "$subfolder")
-		bootfolder=isodistro/stock/$distro/$revision
+		bootfolder=boot/$distro/$revision
 		if [ -e "$subfolder/casper/initrd.lz" ]; then
             stock_casper_init_lz
 		elif [ -e "$subfolder/casper/initrd.gz" ]; then

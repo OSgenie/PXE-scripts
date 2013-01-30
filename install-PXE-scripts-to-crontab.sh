@@ -1,5 +1,5 @@
 #!/bin/bash
-
+gitdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 function check_for_sudo ()
 {
 if [ $UID != 0 ]; then
@@ -10,14 +10,14 @@ fi
 
 function install_scripts_local_bin ()
 {
-install build-pxemenus.sh /usr/local/bin/build-pxemenus
-install create-install-menus.sh /usr/local/bin/create-install-menus.sh
-install create-live-menus.sh /usr/local/bin/create-live-menus.sh
-install create-submenus.sh /usr/local/bin/create-submenus.sh
-install create-stock-menus.sh /usr/local/bin/create-stock-menus.sh
-install create-main-menu.sh /usr/local/bin/create-main-menu.sh
-#install create-utility-menu.sh /usr/local/bin/create-utility-menu.sh
-install nfs-extract-iso.sh /usr/local/bin/extract-isos
+install $gitdir/build-pxemenus.sh /usr/local/bin/build-pxemenus
+install $gitdir/create-install-menus.sh /usr/local/bin/create-install-menus.sh
+install $gitdir/create-live-menus.sh /usr/local/bin/create-live-menus.sh
+install $gitdir/create-submenus.sh /usr/local/bin/create-submenus.sh
+install $gitdir/create-stock-menus.sh /usr/local/bin/create-stock-menus.sh
+install $gitdir/create-main-menu.sh /usr/local/bin/create-main-menu.sh
+#install $gitdir/create-utility-menu.sh /usr/local/bin/create-utility-menu.sh
+install $gitdir/nfs-extract-iso.sh /usr/local/bin/extract-isos
 }
 
 function configure_crontab ()

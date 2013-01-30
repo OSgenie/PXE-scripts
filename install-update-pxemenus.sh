@@ -7,4 +7,4 @@ sudo install menu-distro-stock.sh /usr/local/bin/menu-distro-stock.sh
 sudo install menu-main.sh /usr/local/bin/menu-main.sh
 #menu-utilities.sh
 
-sudo crontab -l | { cat; echo "5-55/10 * * * * /usr/local/bin/build-pxemenus"; } | sudo crontab -
+echo "5-55/10 * * * * /usr/local/bin/build-pxemenus" | sudo crontab -

@@ -4,7 +4,7 @@
 
 nfshost=192.168.11.3
 nfspath=$nfshost:/pxeboot
-nfsrootpath=$nfshost:/var/nfs/pxeboot
+nfsrootpath=$nfshost:/var/nfs/pxeboot/live
 tftpfolder=/var/lib/tftpboot
 seedpath=http://192.168.11.10/preseed
 seedfile="ubuntu.seed"

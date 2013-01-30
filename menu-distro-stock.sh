@@ -28,7 +28,7 @@ MENU LABEL <---- Stock Menu
 EOM
 }
 
-function casper_init_lz ()
+function stock_casper_init_lz ()
 {
 kernelpath=$bootfolder/casper
 mkdir -p $tftpfolder/$kernelpath
@@ -43,7 +43,7 @@ MENU LABEL $revision
 EOM
 }
 
-function casper_initrd_gz ()
+function stock_casper_initrd_gz ()
 {
 kernelpath=$bootfolder/casper
 mkdir -p $tftpfolder/$kernelpath
@@ -58,7 +58,7 @@ MENU LABEL $revision
 EOM
 }
 
-function install_initrd_gz ()
+function stock_install_initrd_gz ()
 {
 kernelpath=$bootfolder/install
 mkdir -p $tftpfolder/$kernelpath
@@ -73,7 +73,7 @@ MENU LABEL $revision
 EOM
 }
 
-function install_netboot ()
+function stock_install_netboot ()
 {
 if [[ $distro == *amd64* ]]; then
     cpu=amd64
@@ -111,13 +111,13 @@ distro_title
 		revision=$(basename "$subfolder")
 		bootfolder=isodistro/stock/$distro/$revision
 		if [ -e "$subfolder/casper/initrd.lz" ]; then
-            casper_init_lz
+            stock_casper_init_lz
 		elif [ -e "$subfolder/casper/initrd.gz" ]; then
-            casper_initrd_gz
+            stock_casper_initrd_gz
 		elif [ -e "$subfolder/install/initrd.gz" ]; then
-            install_initrd_gz
+            stock_install_initrd_gz
         elif [ -e "$subfolder/install" ]; then
-            install_netboot
+            stock_install_netboot
 		else 
 		  echo "ERROR - $distro-$revision"
 		  rm $menupath  

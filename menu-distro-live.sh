@@ -29,7 +29,7 @@ append menus/live.conf
 EOM
 }
 
-function casper_initrd_lz ()
+function live_casper_initrd_lz ()
 {
 kernelpath=$bootfolder/casper
 mkdir -p $tftpfolder/$kernelpath
@@ -43,7 +43,7 @@ MENU LABEL $revdate
 EOM
 }
 
-function casper_initrd_gz ()
+function live_casper_initrd_gz ()
 {
 kernelpath=$bootfolder/casper
 mkdir -p $tftpfolder/$kernelpath
@@ -78,9 +78,9 @@ for folder in /mnt/live/*; do
             revision=$(basename "$subfolder")
             bootfolder=isodistro/$distro/$revision
             if [ -e "$subfolder/casper/initrd.lz" ]; then
-                casper_initrd_lz
+                live_casper_initrd_lz
             elif [ -e "$subfolder/casper/initrd.gz" ]; then
-                casper_initrd_gz
+                live_casper_initrd_gz
             else 
                 echo " not a live cd"
             rm $menupath  

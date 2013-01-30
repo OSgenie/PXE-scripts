@@ -30,7 +30,7 @@ LABEL rootmenu
 EOM
 }
 
-function casper_initrd_lz ()
+function oem_install_casper_initrd_lz ()
 {
 echo "casper_initrd_lz"
 kernelpath=$bootfolder/casper
@@ -45,7 +45,7 @@ MENU LABEL $revdate
 EOM
 }
 
-function casper_initrd_gz ()
+function oem_install_casper_initrd_gz ()
 {
 echo "casper_initrd_gz"
 kernelpath=$bootfolder/casper
@@ -61,7 +61,7 @@ MENU LABEL $revdate
 EOM
 }
 
-function install_initrd_gz ()
+function oem_install_install_initrd_gz ()
 {
 echo "install_initrd_gz"
 kernelpath=$bootfolder/install
@@ -77,7 +77,7 @@ MENU LABEL $revision
 EOM
 }
 
-function install_netboot ()
+function oem_install_install_netboot ()
 {
 echo "install_netboot"
 if [[ $distro == *amd64* ]]; then
@@ -119,13 +119,13 @@ for folder in /mnt/install/*; do
     		revision=$(basename "$subfolder")
     		bootfolder=isodistro/$distro/$revision
     		if [ -e "$subfolder/casper/initrd.lz" ]; then
-                casper_initrd_lz
+                oem_install_casper_initrd_lz
     		elif [ -e "$subfolder/casper/initrd.gz" ]; then
-                casper_initrd_gz
+                oem_install_casper_initrd_gz
     		elif [ -e "$subfolder/install/initrd.gz" ]; then
-                install_initrd_gz
+                oem_install_install_initrd_gz
             elif [ -e "$subfolder/install" ]; then
-                install_netboot
+                oem_install_install_netboot
     		else 
     		  echo "ERROR - $distro-$revision"
     		fi

@@ -18,7 +18,6 @@ fi
 
 function distro_title ()
 {
-echo "Title"
 cat > $menupath << EOM
 MENU TITLE --== $distro ==-- 
  
@@ -100,7 +99,7 @@ mount -t nfs4 $nfspath /mnt/
 for folder in /mnt/install/*; do
     distro=$(basename "$folder")
     menupath="$tftpfolder/menus/install/$distro.conf"
-    echo "creating $distro menu..."
+    echo "creating Install - $distro menu..."
     distro_title
     revisions=$( ls -r $folder )
 	# PXE boot menu entry for each iso

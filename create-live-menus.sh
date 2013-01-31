@@ -62,7 +62,7 @@ mount -t nfs4 $nfspath /mnt/
 for folder in /mnt/live/*; do
     distro=$(basename "$folder")
     menupath="$tftpfolder/menus/live/$distro.conf"
-    echo "creating $distro menu..."
+    echo "creating Live - $distro menu..."
     distro_title
     # PXE boot menu entry for each iso
     revisions=$( ls -r $folder )

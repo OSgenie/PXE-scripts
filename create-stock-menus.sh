@@ -101,7 +101,7 @@ mount -t nfs4 $nfspath /mnt/
 for folder in /mnt/stock/*; do
 distro=$(basename "$folder")
 menupath="$tftpfolder/menus/stock/$distro.conf"
-echo "creating $distro menu..."
+echo "creating Stock - $distro menu..."
 distro_title
 	# PXE boot menu entry for each iso
 	revisions=$( ls -r $folder )

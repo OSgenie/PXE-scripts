@@ -4,6 +4,14 @@ wgetdownload=/var/nfs/iso
 isofolder=/var/nfs/updatediso
 pxeshare=/var/nfs/pxeboot
 
+function check_for_sudo ()
+{
+if [ $UID != 0 ]; then
+		echo "You need root privileges"
+		exit 2
+fi
+}
+
 function extract_stock_iso ()
 {
 for folder in $torrentdownload $wgetdownload; do
@@ -15,11 +23,11 @@ for folder in $torrentdownload $wgetdownload; do
     if [ $extension == iso ]; then
         if [ ! -e $pxefolder ]; then
             echo "COPY Stock - $fullname"
-            sudo mount -o ro,loop $iso /mnt/
-            sudo mkdir -p $pxefolder
-            sudo cp -ru /mnt/* $pxefolder
-            sudo cp -ru /mnt/.disk $pxefolder
-            sudo umount /mnt/
+            mount -o ro,loop $iso /mnt/
+            mkdir -p $pxefolder
+            cp -ru /mnt/* $pxefolder
+            cp -ru /mnt/.disk $pxefolder
+            umount /mnt/
         else
             echo "$pxefolder exists!"
         fi
@@ -42,11 +50,11 @@ for folder in $isofolder/*; do
         if [ $extension == iso ];then
         	if [ ! -e $pxefolder ]; then
         	   echo "COPY $name - $type"
-        	   sudo mount -o ro,loop $iso /mnt/
-        	   sudo mkdir -p $pxefolder
-        	   sudo cp -ru /mnt/* $pxefolder
-        	   sudo cp -ru /mnt/.disk $pxefolder
-        	   sudo umount /mnt/
+        	   mount -o ro,loop $iso /mnt/
+        	   mkdir -p $pxefolder
+        	   cp -ru /mnt/* $pxefolder
+        	   cp -ru /mnt/.disk $pxefolder
+        	   umount /mnt/
         	else
         	   echo "$pxefolder exists!"
         	fi
@@ -55,5 +63,6 @@ for folder in $isofolder/*; do
 done
 }
 
+check_for_sudo
 extract_stock_iso
 extract_modified_iso

@@ -24,8 +24,8 @@ install $scriptdir/nfs-extract-iso.sh /usr/local/bin/extract-isos
 function configure_crontab ()
 {
 echo "# m h  dom mon dow   command" | crontab -
-crontab -l | { cat; echo "*/10 * * * * /usr/local/bin/build-pxemenus"; } | crontab -
-crontab -l | { cat; echo "2-52/10 * * * * /usr/local/bin/extract-isos"; } | crontab -
+crontab -l | { cat; echo "*/10 * * * * /usr/local/bin/build-pxemenus  > /var/log/build-pxemenus.log"; } | crontab -
+crontab -l | { cat; echo "2-52/10 * * * * /usr/local/bin/extract-isos  > /var/log/extract-isos.log"; } | crontab -
 }
 
 check_for_sudo

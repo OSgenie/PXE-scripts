@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 scriptdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 function check_for_sudo ()
 

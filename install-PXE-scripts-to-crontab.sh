@@ -1,6 +1,7 @@
 #!/bin/bash
-gitdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+scriptdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 function check_for_sudo ()
+
 {
 if [ $UID != 0 ]; then
 		echo "You need root privileges"
@@ -10,14 +11,14 @@ fi
 
 function install_scripts_local_bin ()
 {
-install $gitdir/build-pxemenus.sh /usr/local/bin/build-pxemenus
-install $gitdir/create-install-menus.sh /usr/local/bin/create-install-menus.sh
-install $gitdir/create-live-menus.sh /usr/local/bin/create-live-menus.sh
-install $gitdir/create-submenus.sh /usr/local/bin/create-submenus.sh
-install $gitdir/create-stock-menus.sh /usr/local/bin/create-stock-menus.sh
-install $gitdir/create-main-menu.sh /usr/local/bin/create-main-menu.sh
-#install $gitdir/create-utility-menu.sh /usr/local/bin/create-utility-menu.sh
-install $gitdir/nfs-extract-iso.sh /usr/local/bin/extract-isos
+install $scriptdir/build-pxemenus.sh /usr/local/bin/build-pxemenus
+install $scriptdir/create-install-menus.sh /usr/local/bin/create-install-menus.sh
+install $scriptdir/create-live-menus.sh /usr/local/bin/create-live-menus.sh
+install $scriptdir/create-submenus.sh /usr/local/bin/create-submenus.sh
+install $scriptdir/create-stock-menus.sh /usr/local/bin/create-stock-menus.sh
+install $scriptdir/create-main-menu.sh /usr/local/bin/create-main-menu.sh
+#install $scriptdir/create-utility-menu.sh /usr/local/bin/create-utility-menu.sh
+install $scriptdir/nfs-extract-iso.sh /usr/local/bin/extract-isos
 }
 
 function configure_crontab ()

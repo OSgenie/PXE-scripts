@@ -1,8 +1,7 @@
 #!/bin/bash
 # Kirtley Wienbroer
 # kirtley@osgenie.com
-
-nfshost=192.168.11.3
+nfshost=192.168.11.10
 nfspath=$nfshost:/pxeboot
 nfsrootpath=$nfshost:/var/nfs/pxeboot/live
 tftpfolder=/var/lib/tftpboot

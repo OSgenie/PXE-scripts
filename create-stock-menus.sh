@@ -1,7 +1,7 @@
 #!/bin/bash
 # Kirtley Wienbroer
 # kirtley@osgenie.com
-nfshost=192.168.11.88
+nfshost=192.168.11.10
 nfspath=$nfshost:/pxeboot/stock
 nfsrootpath=$nfshost:/var/nfs/pxeboot/stock
 tftpfolder=/var/lib/tftpboot
@@ -97,7 +97,7 @@ EOM
 
 function generate_stock_menu ()
 {
-mount -t nfs4 $nfspath /mnt/pxeboot
+mount -t nfs4 $nfspath /mnt/
 for folder in /mnt/stock/*; do
 distro=$(basename "$folder")
 menupath="$tftpfolder/menus/stock/$distro.conf"

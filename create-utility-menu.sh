@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Kirtley Wienbroer
 # kirtley@osgenie.com
 # June 24 2012

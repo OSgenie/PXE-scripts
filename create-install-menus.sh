@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Kirtley Wienbroer
 # kirtley@osgenie.com
 nfshost=192.168.11.10

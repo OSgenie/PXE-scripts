@@ -19,6 +19,7 @@ install $scriptdir/create-stock-menus.sh /usr/local/bin/create-stock-menus.sh
 install $scriptdir/create-main-menu.sh /usr/local/bin/create-main-menu.sh
 #install $scriptdir/create-utility-menu.sh /usr/local/bin/create-utility-menu.sh
 install $scriptdir/nfs-extract-iso.sh /usr/local/bin/extract-isos
+install $scriptdir/remove-older-iso-revisions.sh /usr/local/bin/remove-older-iso-revisions
 }
 
 function configure_crontab ()
@@ -26,6 +27,7 @@ function configure_crontab ()
 echo "# m h  dom mon dow   command" | crontab -
 crontab -l | { cat; echo "*/10 * * * * /usr/local/bin/build-pxemenus  > /var/log/build-pxemenus.log"; } | crontab -
 crontab -l | { cat; echo "2-52/10 * * * * /usr/local/bin/extract-isos  > /var/log/extract-isos.log"; } | crontab -
+crontab -l | { cat; echo "@weekly /usr/local/bin/remove-older-iso-revisions  >> /var/log/remove-older-isos.log"; } | crontab -
 }
 
 check_for_sudo

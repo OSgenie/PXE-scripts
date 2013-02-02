@@ -5,7 +5,7 @@ directories=(
 /var/nfs/updatediso/live
 /var/nfs/pxeboot/install
 /var/nfs/pxeboot/live
-/var/lib/tftpboot/boot/
+/var/lib/tftpboot/boot
 )
 
 function check_for_sudo ()
@@ -20,7 +20,7 @@ function delete_older_isos ()
 {
 find /var/lib/tftpboot/boot/*/gold -exec touch {} +
 for dir in $directories; do
-    find $dir/* -mtime +28 -delete
+    find $dir/* -mtime +2 #-delete
 done
 }
 

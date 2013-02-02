@@ -18,9 +18,12 @@ fi
 
 function delete_older_isos ()
 {
+echo "+-------------------------------------------------------------------+"    
+echo "+ `date +%c`"
+echo "+-------------------------------------------------------------------+"    
 find /var/lib/tftpboot/boot/*/gold -exec touch {} +
 for dir in $directories; do
-    find $dir/* -mtime +2 #-delete
+    find $dir/* -mtime +28 -delete
 done
 }
 

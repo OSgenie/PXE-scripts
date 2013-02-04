@@ -66,7 +66,7 @@ for iso in $all_isos; do
         clear
         echo "Which distrubution of Ubuntu is $iso based on?"
         add_iso_to_list
-        echo $iso_name | tee -a $folderpath/updatelists/$selected_list
+        echo $iso | tee -a $folderpath/updatelists/$selected_list
     fi
 done
 }

@@ -39,7 +39,7 @@ for server_release in $supported_releases; do
 #        echo ${list[@]}
 #        for (( i=0;i<${#list[@]};i++)); do
 #            echo ${list[$i]} | tee -a $folderpath/updatelists/$updatelist
-        done
+#        done
     done
 done
 }

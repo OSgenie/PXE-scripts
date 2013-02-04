@@ -35,6 +35,7 @@ for server_release in $supported_releases; do
     for server_arch in $supported_arches; do
         updatelist=$server_release-$server_arch
         create_array_of_valid_isos
+        echo ${list[@]}
         for (( i=0;i<${#list[@]};i++)); do
             echo ${list[$i]} | tee -a $folderpath/updatelists/$updatelist
         done

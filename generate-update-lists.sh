@@ -34,11 +34,13 @@ supported_releases="12.04 12.10"
 for server_release in $supported_releases; do
     for server_arch in $supported_arches; do
         updatelist=$server_release-$server_arch
-        echo $updatelist
-        create_array_of_valid_isos
-        for (( i=0;i<${#list[@]};i++)); do
-            echo ${list[$i]} | tee -a $folderpath/updatelists/$updatelist
-        done
+        if [ ! -f $folderpath/updatelists/$updatelist ]; then
+            echo $updatelist
+            create_array_of_valid_isos
+            for (( i=0;i<${#list[@]};i++)); do
+                echo ${list[$i]} | tee -a $folderpath/updatelists/$updatelist
+            done
+        fi
     done
 done
 }
@@ -59,7 +61,6 @@ function add_custom_isos_to_lists_of_valid_isos ()
 {
 all_isos=$( ls $folderpath/ )
 for iso in $all_isos; do
-    echo $iso
     iso_already_in_list=$(grep "$iso" $folderpath/updatelists/*)
     if [ "$iso_already_in_list" == "" ]; then
         clear

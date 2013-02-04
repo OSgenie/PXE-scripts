@@ -66,6 +66,5 @@ for iso in $all_isos; do
 done
 }
 
-create_array_of_valid_isos
 auto_generate_lists_of_valid_isos
 add_custom_isos_to_lists_of_valid_isos

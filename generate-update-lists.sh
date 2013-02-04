@@ -36,7 +36,6 @@ for server_release in $supported_releases; do
         updatelist=$server_release-$server_arch
         echo $updatelist
         create_array_of_valid_isos
-        echo ${list[@]}
         for (( i=0;i<${#list[@]};i++)); do
             echo ${list[$i]} | tee -a $folderpath/updatelists/$updatelist
         done
@@ -58,12 +57,15 @@ selected_list=${available_lists[$choice]}
 function add_custom_isos_to_lists_of_valid_isos ()
 {
 all_isos=$( ls $folderpath/ )
+echo $all_isos
 for iso in $all_isos; do
-    iso_already_in_list=( grep "$iso" $folderpath/updatelists/* )
+    echo $iso
+    iso_name=$(basename $iso)
+    iso_already_in_list=( grep "$iso_name" $folderpath/updatelists/* )
     if [ "$iso_already_in_list" == "" ]; then
         echo "Which distrubution of Ubuntu is $iso based on?"
         add_iso_to_list
-        echo $iso | tee -a $folderpath/updatelists/$selected_list
+        echo $iso_name | tee -a $folderpath/updatelists/$selected_list
     fi
 done
 }

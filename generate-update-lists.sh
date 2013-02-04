@@ -57,10 +57,10 @@ selected_list=${available_lists[$choice]}
 function add_custom_isos_to_lists_of_valid_isos ()
 {
 all_isos=$( ls $folderpath/ )
-echo $all_isos
 for iso in $all_isos; do
     echo $iso
     iso_name=$(basename $iso)
+    echo $iso_name
     iso_already_in_list=( grep "$iso_name" $folderpath/updatelists/* )
     if [ "$iso_already_in_list" == "" ]; then
         echo "Which distrubution of Ubuntu is $iso based on?"

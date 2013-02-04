@@ -17,7 +17,7 @@ for option in $array; do
         elif [[ $x = 'amd64' || $x = 'x86_64' || $x = '64' || $x = '64bit' ]]; then
             os_arch=amd64
         fi
-        if [ ${x:0:5} == $server_release ]; then
+        if [ "${x:0:5}" == "$server_release" ]; then
             iso_release='match'
         fi
     done

@@ -64,7 +64,7 @@ for iso in $all_isos; do
     echo $iso
     if [ "${option##*.}" == "iso" ]; then
         iso_already_in_list=$(grep "$iso" $folderpath/updatelists/*)
-        if [ "$iso_already_in_list" == "" ]; then
+        if [ -z "$iso_already_in_list" ]; then
             clear
             echo "Which distrubution of Ubuntu is $iso based on?"
             add_iso_to_list

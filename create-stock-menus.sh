@@ -114,8 +114,8 @@ distro_title
             stock_casper_init_lz
 		elif [ -e "$subfolder/casper/initrd.gz" ]; then
             stock_casper_initrd_gz
-		elif [ -e "$subfolder/install/initrd.gz" ]; then
-            stock_install_initrd_gz
+#		elif [ -e "$subfolder/install/initrd.gz" ]; then
+#            stock_install_initrd_gz
         elif [ -e "$subfolder/install" ]; then
             stock_install_netboot
 		else 

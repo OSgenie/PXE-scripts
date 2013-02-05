@@ -67,7 +67,7 @@ cp -uv $subfolder/install/initrd.gz $tftpfolder/$kernelpath/
 cat >> $menupath << EOM
 LABEL $revision
 MENU LABEL $revision
-    kernel $kernelpath/linux
+    kernel $kernelpath/vmlinuz
     append initrd=$kernelpath/initrd.gz noprompt netboot=nfs url=$seedpath/$seedfile root=/dev/nfs nfsroot=$nfspath/$distro/$revision/ ip=dhcp rw
 
 EOM

@@ -5,7 +5,7 @@ nfshost=192.168.11.10
 nfspath=$nfshost:/pxeboot/stock
 nfsrootpath=$nfshost:/var/nfs/pxeboot/stock
 tftpfolder=/var/lib/tftpboot
-seedpath=http://192.168.11.10/preseed
+seedpath=http://192.168.11.10/stock
 seedfile="ubuntu.seed"
 
 function check_for_sudo ()
@@ -68,8 +68,8 @@ cat >> $menupath << EOM
 LABEL $revision
 MENU LABEL $revision
     kernel $kernelpath/vmlinuz
-    append initrd=$kernelpath/initrd.gz noprompt netboot=nfs url=$seedpath/$seedfile root=/dev/nfs nfsroot=$nfspath/$distro/$revision/ ip=dhcp rw
-
+    append initrd=$kernelpath/initrd.gz noprompt netboot=nfs url=$seedpath/$distro/$revision/preseed/ubuntu-server.seed root=/dev/nfs nfsroot=$nfspath/$distro/$revision/ ip=dhcp rw
+    
 EOM
 }
 
@@ -90,7 +90,7 @@ cat >> $menupath << EOM
 LABEL $revision
 MENU LABEL $revision
     kernel $kernelpath/linux
-    append initrd=$kernelpath/initrd.gz noprompt netboot=nfs url=$seedpath/$seedfile root=/dev/nfs nfsroot=$nfspath/$distro/$revision/ ip=dhcp rw
+    append initrd=$kernelpath/initrd.gz noprompt netboot=nfs url=$seedpath/$distro/$revision/preseed/ubuntu-server.seed root=/dev/nfs nfsroot=$nfspath/$distro/$revision/ ip=dhcp rw
 
 EOM
 }

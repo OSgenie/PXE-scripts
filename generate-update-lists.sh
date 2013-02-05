@@ -1,6 +1,14 @@
 #!/bin/bash
 folderpath=/var/nfs/transmission/complete
 
+function check_for_sudo ()
+{
+if [ $UID != 0 ]; then
+        echo "You need root privileges"
+        exit 2
+fi
+}
+
 function create_array_of_valid_isos ()
 {
 array=$( ls $folderpath/ )
@@ -73,5 +81,6 @@ for iso in $all_isos; do
 done
 }
 
+check_for_sudo
 auto_generate_lists_of_valid_isos
 add_custom_isos_to_lists_of_valid_isos

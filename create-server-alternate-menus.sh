@@ -63,7 +63,6 @@ mount -t nfs4 $nfspath /mnt/
 for folder in /mnt/stock/*; do
 distro=$(basename "$folder")
 menupath="$tftpfolder/menus/server/$distro.conf"
-echo "creating Server - $distro menu..."
 distro_title
 	# PXE boot menu entry for each iso
 	revisions=$( ls -r $folder )
@@ -73,6 +72,7 @@ distro_title
 		revision=$(basename "$subfolder")
 		bootfolder=boot/$distro/$revision
         if [ -e "$subfolder/install/netboot" ]; then
+            echo "creating Server - $distro menu..."
             server_install_netboot
 		fi
 		done

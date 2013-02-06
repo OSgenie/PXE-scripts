@@ -34,7 +34,7 @@ crontab -l | { cat; echo "@weekly /usr/local/bin/remove-older-iso-revisions  >> 
 
 function copy_preseeds ()
 {
-cp $scriptdir/preseed/* $http_preseed_root/
+cp -uv $scriptdir/preseed/* $http_preseed_root/
 }
 
 check_for_sudo

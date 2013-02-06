@@ -58,41 +58,6 @@ MENU LABEL $revdate
 EOM
 }
 
-function oem_install_install_initrd_gz ()
-{
-kernelpath=$bootfolder/install
-mkdir -p $tftpfolder/$kernelpath
-cp -uv $subfolder/install/vmlinuz $tftpfolder/$kernelpath/
-cp -uv $subfolder/install/initrd.gz $tftpfolder/$kernelpath/
-cat >> $menupath << EOM
-LABEL $revision
-MENU LABEL $revision
-    kernel $kernelpath/vmlinuz
-    append initrd=$kernelpath/initrd.gz noprompt netboot=nfs url=$seedpath/$seedfile root=/dev/nfs nfsroot=$nfspath/$distro/$revision/ ip=dhcp rw
-
-EOM
-}
-
-function oem_install_install_netboot ()
-{
-if [[ $distro == *amd64* ]]; then
-    cpu=amd64
-else
-    cpu=i386
-fi
-    kernelpath=$bootfolder/install/netboot/ubuntu-installer/$cpu
-mkdir -p $tftpfolder/$kernelpath
-cp -uv $subfolder/install/netboot/ubuntu-installer/$cpu/linux $tftpfolder/$kernelpath/
-cp -uv $subfolder/install/netboot/ubuntu-installer/$cpu/initrd.gz $tftpfolder/$kernelpath/
-cat >> $menupath << EOM
-LABEL $revdate
-MENU LABEL $revdate
-    kernel $kernelpath/linux
-    append initrd=$kernelpath/initrd.gz noprompt netboot=nfs url=$seedpath/$seedfile root=/dev/nfs nfsroot=$nfspath/$distro/$revision/ ip=dhcp rw
-
-EOM
-}
-
 function generate_install_menu ()
 {
 mount -t nfs4 $nfspath /mnt/
@@ -117,10 +82,6 @@ for folder in /mnt/install/*; do
                 oem_install_casper_initrd_lz
     		elif [ -e "$subfolder/casper/initrd.gz" ]; then
                 oem_install_casper_initrd_gz
-    		elif [ -e "$subfolder/install/initrd.gz" ]; then
-                oem_install_install_initrd_gz
-            elif [ -e "$subfolder/install" ]; then
-                oem_install_install_netboot
     		else 
     		  echo "ERROR - $distro-$revision"
     		fi

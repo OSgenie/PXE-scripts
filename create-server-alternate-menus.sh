@@ -30,7 +30,7 @@ LABEL rootmenu
 EOM
 }
 
-function stock_install_netboot ()
+function server_install_netboot ()
 {
 if [[ $distro == *amd64* ]]; then
     cpu=amd64
@@ -73,10 +73,7 @@ distro_title
 		revision=$(basename "$subfolder")
 		bootfolder=boot/$distro/$revision
         if [ -e "$subfolder/install/netboot" ]; then
-            stock_install_netboot
-		else 
-		  echo "ERROR - $distro-$revision"
-		  rm $menupath  
+            server_install_netboot
 		fi
 		done
 	done

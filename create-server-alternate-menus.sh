@@ -5,8 +5,8 @@ nfshost=192.168.11.10
 nfspath=$nfshost:/pxeboot/server
 nfsrootpath=$nfshost:/var/nfs/pxeboot/server
 tftpfolder=/var/lib/tftpboot
-seedpath=http://192.168.11.10/stock
-seedfile="https://bit.ly/uinstall"
+seedpath=http://192.168.11.10/pxeboot
+seedfile=uinstall
 
 function check_for_sudo ()
 {
@@ -51,7 +51,7 @@ cat >> $menupath << EOM
 LABEL $revision
 MENU LABEL $revision
     kernel $kernelpath/linux
-    append initrd=$kernelpath/initrd.gz noprompt netboot=nfs url=$seedfile root=/dev/nfs nfsroot=$nfspath/$distro/$revision/ ip=dhcp rw
+    append initrd=$kernelpath/initrd.gz noprompt netboot=nfs url=$seedpath/$seedfile root=/dev/nfs nfsroot=$nfspath/$distro/$revision/ ip=dhcp rw
 #url=$seedpath/$distro/$revision/preseed/ubuntu-server.seed
 EOM
 }
@@ -61,8 +61,8 @@ function generate_server_menu ()
 mount -t nfs4 $nfspath /mnt/
 for folder in /mnt/stock/*; do
 distro=$(basename "$folder")
-menupath="$tftpfolder/menus/stock/$distro.conf"
-echo "creating Stock - $distro menu..."
+menupath="$tftpfolder/menus/server/$distro.conf"
+echo "creating Server - $distro menu..."
 distro_title
 	# PXE boot menu entry for each iso
 	revisions=$( ls -r $folder )

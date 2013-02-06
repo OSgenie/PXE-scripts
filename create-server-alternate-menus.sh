@@ -71,7 +71,7 @@ distro_title
 		for subfolder in $subfolderarray; do
 		revision=$(basename "$subfolder")
 		bootfolder=boot/$distro/$revision
-        if [ -e "$subfolder/install" ]; then
+        if [ -e "$subfolder/install/netboot" ]; then
             stock_install_netboot
 		else 
 		  echo "ERROR - $distro-$revision"

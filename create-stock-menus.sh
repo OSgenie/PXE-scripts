@@ -81,10 +81,10 @@ elif [[ $distro == *i386* ]]; then
     cpu=i386
 fi
 if [ -e $subfolder/install/netboot/non-pae ]; then
-    kernelpath=$bootfolder/install/netboot/ubuntu-installer/non-pae/$cpu
+    kernelpath=$bootfolder/install/netboot/non-pae/ubuntu-installer/$cpu
     mkdir -p $tftpfolder/$kernelpath
-    cp -uv $subfolder/install/netboot/ubuntu-installer/non-pae/$cpu/linux $tftpfolder/$kernelpath/
-    cp -uv $subfolder/install/netboot/ubuntu-installer/non-pae/$cpu/initrd.gz $tftpfolder/$kernelpath/
+    cp -uv $subfolder/install/netboot/non-pae/ubuntu-installer/$cpu/linux $tftpfolder/$kernelpath/
+    cp -uv $subfolder/install/netboot/non-pae/ubuntu-installer/$cpu/initrd.gz $tftpfolder/$kernelpath/
 else
     kernelpath=$bootfolder/install/netboot/ubuntu-installer/$cpu
     mkdir -p $tftpfolder/$kernelpath

@@ -16,6 +16,19 @@ if [ $UID != 0 ]; then
 fi
 }
 
+function distro_title ()
+{
+cat > $menupath << EOM
+MENU TITLE --== $distro ==-- 
+ 
+LABEL rootmenu
+        MENU LABEL <---- Install Menu
+        kernel vesamenu.c32
+        append menus/install.conf
+
+EOM
+}
+
 function stock_install_netboot ()
 {
 if [[ $distro == *amd64* ]]; then

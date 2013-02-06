@@ -17,6 +17,7 @@ install $scriptdir/create-live-menus.sh /usr/local/bin/create-live-menus.sh
 install $scriptdir/create-submenus.sh /usr/local/bin/create-submenus.sh
 install $scriptdir/create-stock-menus.sh /usr/local/bin/create-stock-menus.sh
 install $scriptdir/create-main-menu.sh /usr/local/bin/create-main-menu.sh
+install $scriptdir/create-server-alternate-menus.sh /usr/local/bin/create-server-alternate-menus.sh
 #install $scriptdir/create-utility-menu.sh /usr/local/bin/create-utility-menu.sh
 install $scriptdir/nfs-extract-iso.sh /usr/local/bin/extract-isos
 install $scriptdir/remove-older-iso-revisions.sh /usr/local/bin/remove-older-iso-revisions

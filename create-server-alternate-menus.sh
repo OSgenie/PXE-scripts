@@ -7,7 +7,6 @@ nfsrootpath=$nfshost:/var/nfs/pxeboot/server
 tftpfolder=/var/lib/tftpboot
 seedpath=http://192.168.11.10/preseed
 seedfile=uinstall
-http://192.168.11.10/preseed/uinstall
 
 function check_for_sudo ()
 {
@@ -61,9 +60,9 @@ function generate_server_menu ()
 {
 mount -t nfs4 $nfspath /mnt/
 for folder in /mnt/stock/*; do
-distro=$(basename "$folder")
-menupath="$tftpfolder/menus/server/$distro.conf"
-distro_title
+    distro=$(basename "$folder")
+    menupath="$tftpfolder/menus/server/$distro.conf"
+    distro_title
 	# PXE boot menu entry for each iso
 	revisions=$( ls -r $folder )
 	for revision in $revisions; do

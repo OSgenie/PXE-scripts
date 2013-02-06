@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 scriptdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+http_preseed_root=/var/nfs/pxeboot/preseed
 
 function check_for_sudo ()
 {
@@ -31,6 +32,12 @@ crontab -l | { cat; echo "2-52/10 * * * * /usr/local/bin/extract-isos  > /var/lo
 crontab -l | { cat; echo "@weekly /usr/local/bin/remove-older-iso-revisions  >> /var/log/remove-older-isos.log"; } | crontab -
 }
 
+function copy_preseeds ()
+{
+cp $scriptdir/preseed/* $http_preseed_root/
+}
+
 check_for_sudo
 install_scripts_local_bin
+copy_preseeds
 configure_crontab

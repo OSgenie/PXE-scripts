@@ -73,6 +73,8 @@ for folder in /mnt/stock/*; do
         if [ -e "$subfolder/install/netboot" ]; then
             echo "creating Server - $distro menu..."
             server_install_netboot
+        else 
+            rm $menupath
 		fi
 		done
 	done

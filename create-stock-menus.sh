@@ -80,7 +80,7 @@ if [[ $distro == *amd64* ]]; then
 elif [[ $distro == *i386* ]]; then
     cpu=i386
 fi
-if [ -d $subfolder/install/netboot/ubuntu-installer/non-pae ]; then
+if [ -e $subfolder/install/netboot/ubuntu-installer/non-pae ]; then
     kernelpath=$bootfolder/install/netboot/ubuntu-installer/non-pae/$cpu
     mkdir -p $tftpfolder/$kernelpath
     cp -uv $subfolder/install/netboot/ubuntu-installer/non-pae/$cpu/linux $tftpfolder/$kernelpath/

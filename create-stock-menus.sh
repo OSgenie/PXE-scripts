@@ -79,13 +79,18 @@ if [[ $distro == *amd64* ]]; then
     cpu=amd64
 elif [[ $distro == *i386* ]]; then
     cpu=i386
-else
-    break
 fi
-kernelpath=$bootfolder/install/netboot/ubuntu-installer/$cpu
-mkdir -p $tftpfolder/$kernelpath
-cp -uv $subfolder/install/netboot/ubuntu-installer/$cpu/linux $tftpfolder/$kernelpath/
-cp -uv $subfolder/install/netboot/ubuntu-installer/$cpu/initrd.gz $tftpfolder/$kernelpath/
+if [ -d $subfolder/install/netboot/ubuntu-installer/non-pae ]; then
+    kernelpath=$bootfolder/install/netboot/ubuntu-installer/non-pae/$cpu
+    mkdir -p $tftpfolder/$kernelpath
+    cp -uv $subfolder/install/netboot/ubuntu-installer/non-pae/$cpu/linux $tftpfolder/$kernelpath/
+    cp -uv $subfolder/install/netboot/ubuntu-installer/non-pae/$cpu/initrd.gz $tftpfolder/$kernelpath/
+else
+    kernelpath=$bootfolder/install/netboot/ubuntu-installer/$cpu
+    mkdir -p $tftpfolder/$kernelpath
+    cp -uv $subfolder/install/netboot/ubuntu-installer/$cpu/linux $tftpfolder/$kernelpath/
+    cp -uv $subfolder/install/netboot/ubuntu-installer/$cpu/initrd.gz $tftpfolder/$kernelpath/
+fi
 cat >> $menupath << EOM
 LABEL $revision
 MENU LABEL $revision

@@ -5,8 +5,9 @@ nfshost=192.168.11.10
 nfspath=$nfshost:/pxeboot/server
 nfsrootpath=$nfshost:/var/nfs/pxeboot/server
 tftpfolder=/var/lib/tftpboot
-seedpath=http://192.168.11.10/pxeboot
+seedpath=http://192.168.11.10/preseed
 seedfile=uinstall
+http://192.168.11.10/preseed/uinstall
 
 function check_for_sudo ()
 {
@@ -51,7 +52,7 @@ cat >> $menupath << EOM
 LABEL $revision
 MENU LABEL $revision
     kernel $kernelpath/linux
-    append initrd=$kernelpath/initrd.gz noprompt netboot=nfs url=$seedpath/$seedfile root=/dev/nfs nfsroot=$nfspath/$distro/$revision/ ip=dhcp rw
+    append initrd=$kernelpath/initrd.gz priority=critical locale=en_US url=$seedpath/$seedfile netboot=nfs root=/dev/nfs nfsroot=$nfspath/$distro/$revision/ ip=dhcp rw
 #url=$seedpath/$distro/$revision/preseed/ubuntu-server.seed
 EOM
 }

@@ -58,11 +58,16 @@ function add_iso_to_list ()
 available_lists=()
 available_lists=(${available_lists[@]} $(ls $folderpath/updatelists/))
 for (( i=0;i<${#available_lists[@]};i++)); do
-    echo $i") "${available_lists[$i]}
+    echo $((i+1))") "${available_lists[$i]}
 done
 echo ""
 read -p "Enter the number for your choice: " choice
-selected_list=${available_lists[$choice]}
+if [ ! -z $choice ]; then
+    selected_list=${available_lists[$((choice-1))]}
+else
+    echo "Valid choice not received"
+    add_iso_to_list
+fi
 }
     
 function add_custom_isos_to_lists_of_valid_isos ()

@@ -15,22 +15,23 @@ fi
 function generate_main_menu_header ()
 {
 cat > $menupath <<'EOM'
-MENU TITLE --== Main Menu ==--
 DEFAULT vesamenu.c32
-TIMEOUT 200 #this is optional - will start the default after 20 seconds
-ONTIMEOUT BootLocal
 PROMPT 0
-#
+TIMEOUT 200 #this is optional - will start the default after 20 seconds
+ONTIMEOUT local
+
+MENU TITLE --== Main Menu ==--
+
 LABEL kirtley-workstation
 MENU DEFAULT
 MENU LABEL Kirtley Workstation
 KERNEL pxe-kw/vmlinuz-3.2.0-35-generic-pae
-APPEND root=/dev/nfs initrd=pxe-kw/initrd.img-3.2.0-35-generic-pae nfsroot=192.168.11.10:/var/nfs/pxe-kw-4,rw ip=dhcp rw
-#
-LABEL BootLocal
-MENU LABEL Local Boot
+APPEND initrd=pxe-kw/initrd.img-3.2.0-35-generic-pae root=/dev/nfs nfsroot=192.168.11.10:/var/nfs/pxe-kw-4,rw ip=dhcp rw
+
+LABEL local
+MENU LABEL Boot Local Hard Drive
 localboot 0
-#
+
 EOM
 }
 

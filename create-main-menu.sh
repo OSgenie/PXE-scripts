@@ -24,8 +24,8 @@ PROMPT 0
 LABEL kirtley-workstation
 MENU DEFAULT
 MENU LABEL Kirtley Workstation
-KERNEL pxe-kw/vmlinuz-3.2.0-29-generic-pae
-APPEND root=/dev/nfs initrd=pxe-kw/initrd.img-3.2.0-29-generic-pae nfsroot=192.168.11.88:/var/nfs/pxe-kw,rw ip=dhcp rw
+KERNEL pxe-kw/vmlinuz-3.2.0-35-generic-pae
+APPEND root=/dev/nfs initrd=pxe-kw/initrd.img-3.2.0-35-generic-pae nfsroot=192.168.11.10:/var/nfs/pxe-kw-4,rw ip=dhcp rw
 #
 LABEL BootLocal
 MENU LABEL Local Boot

@@ -22,6 +22,7 @@ install $scriptdir/create-server-alternate-menus.sh /usr/local/bin/create-server
 #install $scriptdir/create-utility-menu.sh /usr/local/bin/create-utility-menu.sh
 install $scriptdir/nfs-extract-iso.sh /usr/local/bin/extract-isos
 install $scriptdir/remove-older-iso-revisions.sh /usr/local/bin/remove-older-iso-revisions
+install $scriptdir/generate-update-lists.sh /usr/local/bin/generate-update-lists
 }
 
 function configure_crontab ()

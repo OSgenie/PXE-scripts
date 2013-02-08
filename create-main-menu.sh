@@ -3,6 +3,7 @@
 # kirtley@osgenie.com
 tftpfolder=/var/lib/tftpboot
 menupath="$tftpfolder/mainmenu.conf"
+nfs_server=192.168.11.10
 
 function check_for_sudo ()
 {
@@ -22,11 +23,11 @@ ONTIMEOUT local
 
 MENU TITLE --== Main Menu ==--
 
-LABEL kirtley-workstation
+LABEL workstation
 MENU DEFAULT
-MENU LABEL Kirtley Workstation
+MENU LABEL PXE Workstation
 KERNEL pxe-kw/vmlinuz-3.2.0-35-generic-pae
-APPEND initrd=pxe-kw/initrd.img-3.2.0-35-generic-pae root=/dev/nfs nfsroot=192.168.11.10:/var/nfs/pxe-kw-4,rw ip=dhcp rw
+APPEND initrd=pxe-kw/initrd.img-3.2.0-35-generic-pae root=/dev/nfs nfsroot=$nfs_server:/var/nfs/pxe-kw-4,rw ip=dhcp rw
 
 LABEL local
 MENU LABEL Boot Local Hard Drive

@@ -23,13 +23,19 @@ Extracts all iso files to NFS
 Run this script to identify the architecture and release that each iso is based on. (Linux Mint 14 64bit is based on Ubuntu 12.10 amd64)
 ### build-pxemenus.sh
 To be run as a cron job to build PXE menus.
-### The create scripts build the respective menus
+### The create scripts build the respective menus - 
 create-install-menus.sh
+
 create-live-menus.sh
+
 create-main-menu.sh
+
 create-server-alternate-menus.sh
+
 create-stock-menus.sh
+
 create-submenus.sh
+
 create-utility-menu.sh
 ###preseed
 Folder for Preseed files

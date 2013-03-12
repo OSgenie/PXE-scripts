@@ -30,7 +30,7 @@ function configure_crontab ()
 echo "# m h  dom mon dow   command" | crontab -
 crontab -l | { cat; echo "*/10 * * * * /usr/local/bin/build-pxemenus  > /var/log/build-pxemenus.log"; } | crontab -
 crontab -l | { cat; echo "2-52/10 * * * * /usr/local/bin/extract-isos  > /var/log/extract-isos.log"; } | crontab -
-crontab -l | { cat; echo "@weekly /usr/local/bin/remove-older-iso-revisions  >> /var/log/remove-older-isos.log"; } | crontab -
+crontab -l | { cat; echo "@weekly /usr/local/bin/remove-older-iso-revisions  > /var/log/remove-older-isos.log"; } | crontab -
 }
 
 function copy_preseeds ()

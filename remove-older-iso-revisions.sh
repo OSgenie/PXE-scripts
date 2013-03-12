@@ -1,9 +1,9 @@
 #!/bin/bash
 
-directories=(/var/nfs/updatediso/install /
-/var/nfs/updatediso/live /
-/var/nfs/pxeboot/install /
-/var/nfs/pxeboot/live /
+directories=(/var/nfs/updatediso/install \
+/var/nfs/updatediso/live \
+/var/nfs/pxeboot/install \
+/var/nfs/pxeboot/live \
 /var/lib/tftpboot/boot
 )
 

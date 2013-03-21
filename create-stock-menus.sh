@@ -101,7 +101,7 @@ distro_title
 		done
 	done
 done
-umount /mnt
+umount -d /mnt/
 }
 
 check_for_sudo

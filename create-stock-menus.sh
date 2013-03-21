@@ -28,7 +28,7 @@ MENU LABEL <---- Stock Menu
 EOM
 }
 
-function stock_casper_init_lz ()
+function stock_casper_initrd_lz ()
 {
 kernelpath=$bootfolder/casper
 mkdir -p $tftpfolder/$kernelpath
@@ -58,6 +58,21 @@ MENU LABEL $revision
 EOM
 }
 
+function stock_live_initrd_img ()
+{
+kernelpath=$bootfolder/live
+mkdir -p $tftpfolder/$kernelpath
+cp -uv $subfolder/live/vmlinuz $tftpfolder/$kernelpath/
+cp -uv $subfolder/live/initrd.img $tftpfolder/$kernelpath/
+cat >> $menupath << EOM
+LABEL $revision
+MENU LABEL $revision
+    kernel $kernelpath/vmlinuz
+    append initrd=$kernelpath/initrd.img noprompt boot=casper url=$seedpath/$seedfile netboot=nfs nfsroot=$nfsrootpath/$distro/$revision ro toram -
+		   
+EOM
+}
+
 function generate_stock_menu ()
 {
 mount -t nfs4 $nfspath /mnt/
@@ -74,10 +89,12 @@ distro_title
 		revision=$(basename "$subfolder")
 		bootfolder=boot/$distro/$revision
 		if [ -e "$subfolder/casper/initrd.lz" ]; then
-            stock_casper_init_lz
+            stock_casper_initrd_lz
 		elif [ -e "$subfolder/casper/initrd.gz" ]; then
             stock_casper_initrd_gz
-		else 
+		elif [ -e "$subfolder/live/initrd.img" ]; then
+            stock_live_initrd_img
+        else 
 		  echo "ERROR - $distro-$revision"
 		  rm $menupath  
 		fi

@@ -1,6 +1,9 @@
-#!/bin/bash
-torrentdownload=/var/nfs/transmission/complete
-wgetdownload=/var/nfs/iso
+#!/usr/bin/env bash
+# Kirtley Wienbroer
+# kirtley@osgenie.com
+torrent_downloads=$(find /var/nfs/transmission/complete/* -maxdepth 2 -type f -name *.iso)
+wget_downloads=$(find /var/nfs/iso/* -maxdepth 2 -type f -name *.iso)
+downloaded_isos=("${torrent_downloads[@]}" "${wget_downloads[@]}")
 isofolder=/var/nfs/updatediso
 pxeshare=/var/nfs/pxeboot
 
@@ -14,8 +17,7 @@ fi
 
 function extract_stock_iso ()
 {
-for folder in $torrentdownload $wgetdownload; do
-    for iso in $folder/*; do
+for iso in $downloaded_isos; do
     fullname=$(basename "$iso")
     extension=${fullname##*.}
     distro=$(basename $iso .$extension)
@@ -32,7 +34,6 @@ for folder in $torrentdownload $wgetdownload; do
             echo "$pxefolder exists!"
         fi
     fi
-    done
 done
 }
 

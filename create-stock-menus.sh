@@ -68,7 +68,7 @@ cat >> $menupath << EOM
 LABEL $revision
 MENU LABEL $revision
     kernel $kernelpath/vmlinuz
-    append initrd=$kernelpath/initrd.img noprompt boot=casper url=$seedpath/$seedfile netboot=nfs nfsroot=$nfsrootpath/$distro/$revision ro toram -
+    append initrd=$kernelpath/initrd.img noprompt boot=live url=$seedpath/$seedfile netboot=nfs nfsroot=$nfsrootpath/$distro/$revision ro toram -
 		   
 EOM
 }

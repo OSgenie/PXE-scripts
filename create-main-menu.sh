@@ -15,7 +15,7 @@ fi
 
 function generate_main_menu_header ()
 {
-cat > $menupath <<'EOM'
+cat > $menupath <<EOM
 DEFAULT vesamenu.c32
 PROMPT 0
 TIMEOUT 200 #this is optional - will start the default after 20 seconds
@@ -60,7 +60,7 @@ EOM
 
 function generate_conf_menus ()
 {
-echo "Createing Main Menu"
+echo "Creating Main Menu"
 for subfolder in $tftpfolder/*; do
     directory=$(dirname $subfolder)
     foldername=$(basename "$subfolder")

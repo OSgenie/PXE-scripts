@@ -2,14 +2,8 @@
 # Kirtley Wienbroer
 # kirtley@osgenie.com
 torrent_downloads=$(find /var/nfs/transmission/complete/* -maxdepth 2 -type f -name *.iso)
-echo "t"
-echo "${torrent_downloads[@]}" 
 wget_downloads=$(find /var/nfs/iso/* -maxdepth 2 -type f -name *.iso)
-echo "w"
-echo "${wget_downloads[@]}"
 downloaded_isos=("${torrent_downloads[@]}" "${wget_downloads[@]}")
-echo "D"
-echo "${downloaded_isos[@]}"
 isofolder=/var/nfs/updatediso
 pxeshare=/var/nfs/pxeboot
 
@@ -23,7 +17,7 @@ fi
 
 function extract_stock_iso ()
 {
-for iso in $downlowded_isos; do
+for iso in $downloaded_isos; do
     fullname=$(basename "$iso")
     extension=${fullname##*.}
     distro=$(basename $iso .$extension)

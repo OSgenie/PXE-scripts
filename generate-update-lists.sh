@@ -38,7 +38,7 @@ done
 function auto_generate_lists_of_valid_isos ()
 {
 supported_arches="amd64 i386"
-supported_releases="12.04 12.10"
+supported_releases="12.04 12.10 14.04 14.10 15.04 15.10 16.04 16.10 17.04 17.10 18.04 18.10 19.04"
 for server_release in $supported_releases; do
     for server_arch in $supported_arches; do
         updatelist=$server_release-$server_arch

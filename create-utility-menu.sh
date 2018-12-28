@@ -2,7 +2,6 @@
 # Kirtley Wienbroer
 # kirtley@osgenie.com
 # June 24 2012
-
 tftp_folder=/var/lib/tftpboot/utilities
 
 echo "MENU TITLE --== Main Menu ==--" > $tftp_folder/menus/"utilities.conf"
@@ -21,7 +20,7 @@ echo "" >> $tftp_folder/menus/"utilities.conf"
 	directory=$(dirname $subfolder)
 	foldername=$(basename "$subfolder")
 		for conf in $subfolder/*
-		do 
+		do
 		fullname=$(basename $conf)
 		extension=${fullname##*.}
 		name=$(basename $conf .$extension)
@@ -33,7 +32,7 @@ echo "" >> $tftp_folder/menus/"utilities.conf"
 			echo "        append utilities/$foldername/$fullname" >> $tftp_folder/menus/"utilities.conf"
 			echo "" >> $tftp_folder/menus/"utilities.conf"
 		else
-		echo "No conf files"	
+		echo "No conf files"
 		fi
 		done
 	done

@@ -12,6 +12,7 @@ fi
 
 function install_scripts_local_bin ()
 {
+install $scriptdir/pxe.config /usr/local/bin/pxe.config
 install $scriptdir/build-pxemenus.sh /usr/local/bin/build-pxemenus
 install $scriptdir/create-install-menus.sh /usr/local/bin/create-install-menus.sh
 install $scriptdir/create-live-menus.sh /usr/local/bin/create-live-menus.sh

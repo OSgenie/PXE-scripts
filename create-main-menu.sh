@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Kirtley Wienbroer
 # kirtley@osgenie.com
-source pxe.config
+scriptdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source $scriptdir/pxe.config
 
 menupath="$tftp_folder/mainmenu.conf"
 

@@ -4,7 +4,7 @@
 scriptdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source $scriptdir/pxe.config
 
-nfs_path=$nfs_server:/pxeboot/live
+nfs_path=$nfs_server:/pxeboot
 nfs_root_path=$nfs_server:/var/nfs/pxeboot/live
 seed_file="ubuntu.seed"
 

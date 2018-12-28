@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Kirtley Wienbroer
 # kirtley@osgenie.com
-tftpfolder=/var/lib/tftpboot
+source pxe.config
 
 function check_for_sudo ()
 {
@@ -14,15 +14,15 @@ fi
 function generate_distro_menu_header ()
 {
 echo $folder
-menupath="$tftpfolder/menus/$folder.conf"
+menupath="$tftp_folder/menus/$folder.conf"
 cat > $menupath <<EOM
 MENU TITLE --== $folder Menu ==--
- 
+
 LABEL rootmenu
 MENU LABEL <---- Main Menu
 kernel vesamenu.c32
 append mainmenu.conf
- 
+
 EOM
 }
 
@@ -39,11 +39,11 @@ EOM
 
 function refresh_distro_menus ()
 {
-rm $tftpfolder/menus/*.conf
-menus=$( ls $tftpfolder/menus )
+rm $tftp_folder/menus/*.conf
+menus=$( ls $tftp_folder/menus )
 for folder in $menus; do
     generate_distro_menu_header
-    for conf in $tftpfolder/menus/$folder/*; do 
+    for conf in $tftp_folder/menus/$folder/*; do
         fullname=$(basename $conf)
         extension=${fullname##*.}
         name=$(basename $conf .$extension)

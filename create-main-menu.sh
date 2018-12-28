@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # Kirtley Wienbroer
 # kirtley@osgenie.com
-tftpfolder=/var/lib/tftpboot
-menupath="$tftpfolder/mainmenu.conf"
-nfs_server=192.168.11.10
+source pxe.config
+
+menupath="$tftp_folder/mainmenu.conf"
 
 function check_for_sudo ()
 {
@@ -61,17 +61,17 @@ EOM
 function generate_conf_menus ()
 {
 echo "Creating Main Menu"
-for subfolder in $tftpfolder/*; do
+for subfolder in $tftp_folder/*; do
     directory=$(dirname $subfolder)
     foldername=$(basename "$subfolder")
-    for conf in $subfolder/*; do 
+    for conf in $subfolder/*; do
         fullname=$(basename $conf)
         extension=${fullname##*.}
         name=$(basename $conf .$extension)
         if [ $extension == conf ]; then
             conf_menu
         elif [ $fullname == menus ]; then
-            for menu in $subfolder/menus/*; do 
+            for menu in $subfolder/menus/*; do
                 echo $menu
                 fullname=$(basename $menu)
                 extension=${fullname##*.}
@@ -79,7 +79,7 @@ for subfolder in $tftpfolder/*; do
                 if [ $extension == conf ]; then
                 conf_submenus
                 fi
-            done            
+            done
         fi
     done
 done

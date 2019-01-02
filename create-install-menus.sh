@@ -61,7 +61,7 @@ EOM
 function generate_install_menu ()
 {
 mount -t nfs4 $nfs_path /mnt/
-for folder in /mnt/install/*; do
+for folder in /mnt/stock/*; do
     distro=$(basename "$folder")
     menupath="$tftp_folder/menus/install/$distro.conf"
     echo "creating Install - $distro menu..."

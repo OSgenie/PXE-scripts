@@ -59,7 +59,7 @@ EOM
 function generate_live_menu ()
 {
 mount -t nfs4 $nfs_path /mnt/
-for folder in /mnt/live/*; do
+for folder in /mnt/stock/*; do
     distro=$(basename "$folder")
     menupath="$tftp_folder/menus/live/$distro.conf"
     echo "creating Live - $distro menu..."

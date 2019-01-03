@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
+application_name=iso2pxe
+
 script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 http_preseed_root=/var/nfs/pxeboot/preseed
 binary_dir=/usr/local/bin
-application_dir=$binary_dir/iso2pxe
-
+log_dir=/var/log
+application_dir=$binary_dir/$application_name
+application_log=$log_dir/$application_name
 
 function check_for_sudo ()
 {
@@ -41,11 +44,12 @@ function install_scripts_local_bin ()
 
 function configure_crontab ()
 {
+	mkdir -p $application_log
 	echo "# m h  dom mon dow   command" | crontab -
-	crontab -l | { cat; echo "*/10 * * * * $application_dir/build-pxemenus  > /var/log/build-pxemenus.log"; } | crontab -
-	crontab -l | { cat; echo "2-52/10 * * * * $application_dir/extract-isos  > /var/log/extract-isos.log"; } | crontab -
-	crontab -l | { cat; echo "@weekly $application_dir/remove-older-iso-revisions  > /var/log/remove-older-isos.log"; } | crontab -
-	crontab -l | { cat; echo "@weekly $application_dir/get-torrents  > /var/log/get-torrents.log"; } | crontab -
+	crontab -l | { cat; echo "*/10 * * * * $application_dir/build-pxemenus  > $application_log/build-pxemenus.log"; } | crontab -
+	crontab -l | { cat; echo "2-52/10 * * * * $application_dir/extract-isos  > $application_log/extract-isos.log"; } | crontab -
+	crontab -l | { cat; echo "@weekly $application_dir/remove-older-iso-revisions  > $application_log/remove-older-isos.log"; } | crontab -
+	crontab -l | { cat; echo "@weekly $application_dir/get-torrents  > $application_log/get-torrents.log"; } | crontab -
 }
 
 function copy_preseeds ()

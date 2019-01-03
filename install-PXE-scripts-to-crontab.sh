@@ -10,7 +10,7 @@ function check_for_sudo ()
 	fi
 }
 
-function install_variable_source_local_bin ()
+function install_config_source_local_bin ()
 {
 	echo "server_ip=$(/sbin/ifconfig eth0 | grep 'inet addr' | cut -d: -f2 | awk '{print $1}')" | tee $scriptdir/pxe.config
 	echo "tftp_folder=/var/lib/tftpboot" | tee -a $scriptdir/pxe.config
@@ -31,6 +31,9 @@ function install_scripts_local_bin ()
 	install $scriptdir/nfs-extract-iso.sh /usr/local/bin/extract-isos
 	install $scriptdir/remove-older-iso-revisions.sh /usr/local/bin/remove-older-iso-revisions
 	install $scriptdir/generate-update-lists.sh /usr/local/bin/generate-update-lists
+	install $scriptdir/get-torrents.sh /usr/local/bin/get-torrents
+	install -d $scriptdir/torrent.configs /usr/local/bin/torrent.configs
+	install $scriptdir/torrent.configs/* -t /usr/local/bin/torrent.configs
 }
 
 function configure_crontab ()
@@ -39,6 +42,7 @@ function configure_crontab ()
 	crontab -l | { cat; echo "*/10 * * * * /usr/local/bin/build-pxemenus  > /var/log/build-pxemenus.log"; } | crontab -
 	crontab -l | { cat; echo "2-52/10 * * * * /usr/local/bin/extract-isos  > /var/log/extract-isos.log"; } | crontab -
 	crontab -l | { cat; echo "@weekly /usr/local/bin/remove-older-iso-revisions  > /var/log/remove-older-isos.log"; } | crontab -
+	crontab -l | { cat; echo "@weekly /usr/local/bin/get-torrents  > /var/log/get-torrents.log"; } | crontab -
 }
 
 function copy_preseeds ()
@@ -47,7 +51,7 @@ function copy_preseeds ()
 }
 
 check_for_sudo
-install_variable_source_local_bin
+install_config_source_local_bin
 install_scripts_local_bin
 copy_preseeds
 configure_crontab

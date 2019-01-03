@@ -14,10 +14,10 @@ for distro in $distros; do
           cd $download_folder
           if [ $i == 0 ];then
             echo "checking "$release_server"/"$release_folder"/"$distro"-"$release"-"$flavor"-"$arch".iso.torrent"
-            /usr/bin/wget --no-clobber --show-progress -t 1 $release_server"/"$release_folder"/"$distro"-"$release"-"$flavor"-"$arch".iso.torrent"
+            /usr/bin/wget --no-clobber -t 1 $release_server"/"$release_folder"/"$distro"-"$release"-"$flavor"-"$arch".iso.torrent"
           else
             echo "checking "$release_server"/"$release_folder"/"$distro"-"$release"."$i"-"$flavor"-"$arch".iso.torrent"
-            /usr/bin/wget --no-clobber --show-progress -t 1 $release_server"/"$release_folder"/"$distro"-"$release"."$i"-"$flavor"-"$arch".iso.torrent"
+            /usr/bin/wget --no-clobber -t 1 $release_server"/"$release_folder"/"$distro"-"$release"."$i"-"$flavor"-"$arch".iso.torrent"
           fi
           if [ -f $distro"-"$release"."$i"-"$flavor"-"$arch".iso.torrent" ] || [ -f  $distro"-"$release"-"$flavor"-"$arch".iso.torrent" ] \
           || [ -f $distro"-"$release"."$i"-"$flavor"-"$arch".iso.torrent.added" ] || [ -f  $distro"-"$release"-"$flavor"-"$arch".iso.torrent.added" ];then

@@ -69,9 +69,9 @@ for subfolder in $tftp_folder/*; do
         fullname=$(basename $conf)
         extension=${fullname##*.}
         name=$(basename $conf .$extension)
-        if [ $extension == "conf" ]; then
+        if [ $extension == $conf ]; then
             conf_menu
-        elif [ $fullname == "menus" ]; then
+        elif [ $fullname == $menus ]; then
             for menu in $subfolder/menus/*; do
                 echo $menu
                 fullname=$(basename $menu)

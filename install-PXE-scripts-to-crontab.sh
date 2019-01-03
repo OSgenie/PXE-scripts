@@ -32,8 +32,7 @@ function install_scripts_local_bin ()
 	install $scriptdir/remove-older-iso-revisions.sh /usr/local/bin/remove-older-iso-revisions
 	install $scriptdir/generate-update-lists.sh /usr/local/bin/generate-update-lists
 	install $scriptdir/get-torrents.sh /usr/local/bin/get-torrents
-	install -d $scriptdir/torrent.configs /usr/local/bin/torrent.configs
-	install $scriptdir/torrent.configs/* -t /usr/local/bin/torrent.configs
+	cp -r $scriptdir/torrent.configs /usr/local/bin/
 }
 
 function configure_crontab ()

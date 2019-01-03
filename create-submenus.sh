@@ -44,11 +44,11 @@ rm $tftp_folder/menus/*.conf
 menus=$( ls $tftp_folder/menus )
 for folder in $menus; do
     generate_distro_menu_header
-    for conf in $tftp_folder/menus/$folder/*; do
-        fullname=$(basename $conf)
+    for conf_file in $tftp_folder/menus/$folder/*; do
+        fullname=$(basename $conf_file)
         extension=${fullname##*.}
-        name=$(basename $conf .$extension)
-        if [ $extension == $conf ]; then
+        name=$(basename $conf_file .$extension)
+        if [ $extension == ".conf" ]; then
             generate_distro_submenus
         fi
     done

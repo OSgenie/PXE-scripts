@@ -65,11 +65,11 @@ echo "Creating Main Menu"
 for subfolder in $tftp_folder/*; do
     directory=$(dirname $subfolder)
     foldername=$(basename "$subfolder")
-    for conf in $subfolder/*; do
-        fullname=$(basename $conf)
+    for conf_file in $subfolder/*; do
+        fullname=$(basename $conf_file)
         extension=${fullname##*.}
-        name=$(basename $conf .$extension)
-        if [ $extension == $conf ]; then
+        name=$(basename $conf_file .$extension)
+        if [ $extension == ".conf" ]; then
             conf_menu
         elif [ $fullname == $menus ]; then
             for menu in $subfolder/menus/*; do
@@ -77,7 +77,7 @@ for subfolder in $tftp_folder/*; do
                 fullname=$(basename $menu)
                 extension=${fullname##*.}
                 name=$(basename $menu .$extension)
-                if [ $extension == conf ]; then
+                if [ $extension == ".conf" ]; then
                 conf_submenus
                 fi
             done

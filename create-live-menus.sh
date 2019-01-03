@@ -28,32 +28,37 @@ append menus/live.conf
 EOM
 }
 
-function live_casper_initrd_lz ()
+function live_casper ()
 {
 kernelpath=$bootfolder/casper
+
 if [ -f $subfolder/casper/vmlinuz ]; then
-	mkdir -p $tftp_folder/$kernelpath
-	cp -uv $subfolder/casper/vmlinuz $tftp_folder/$kernelpath/
-	cp -uv $subfolder/casper/initrd.lz $tftp_folder/$kernelpath/
-	cat >> $menupath << EOM
-	LABEL $revdate
-	MENU LABEL $revdate
-	    kernel $kernelpath/vmlinuz
-	    append initrd=$kernelpath/initrd.lz noprompt boot=casper url=$seed_path/$seed_file netboot=nfs nfsroot=$nfs_root_path/$distro/$revision ro toram -
-EOM
+	distro_kernel=vmlinuz
 elif [ -f $subfolder/casper/vmlinuz.efi ]; then
-	mkdir -p $tftp_folder/$kernelpath
-	cp -uv $subfolder/casper/vmlinuz.efi $tftp_folder/$kernelpath/
-	cp -uv $subfolder/casper/initrd.lz $tftp_folder/$kernelpath/
-	cat >> $menupath << EOM
-	LABEL $revdate
-	MENU LABEL $revdate
-	    kernel $kernelpath/vmlinuz.efi
-	    append initrd=$kernelpath/initrd.lz noprompt boot=casper url=$seed_path/$seed_file netboot=nfs nfsroot=$nfs_root_path/$distro/$revision ro toram -
-EOM
+	distro_kernel=vmlinuz.efi
 else
+	echo " not a live iso (a)"
 	break
 fi
+
+if [ -f $subfolder/casper/initrd.lz ]; then
+	distro_ram_disk=initrd.lz
+elif [ -f $subfolder/casper/initrd ]; then
+	distro_ram_disk=initrd
+else
+	echo " not a live iso (b)"
+	break
+fi
+
+mkdir -p $tftp_folder/$kernelpath
+cp -uv $subfolder/casper/$distro_kernel $tftp_folder/$kernelpath/
+cp -uv $subfolder/casper/$distro_ram_disk $tftp_folder/$kernelpath/
+cat >> $menupath << EOM
+LABEL $revdate
+MENU LABEL $revdate
+    kernel $kernelpath/$distro_kernel
+    append initrd=$kernelpath/$distro_ram_disk noprompt boot=casper url=$seed_path/$seed_file netboot=nfs nfsroot=$nfs_root_path/$distro/$revision ro toram -
+EOM
 }
 
 function generate_live_menu ()
@@ -76,11 +81,11 @@ for folder in /mnt/stock/*; do
         for subfolder in $subfolderarray; do
             revision=$(basename "$subfolder")
             bootfolder=boot/$distro/$revision
-            if [ -e "$subfolder/casper/initrd.lz" ]; then
-                live_casper_initrd_lz
+            if [ -d "$subfolder/casper/" ]; then
+                live_casper
             else
-                echo " not a live cd"
-            rm $menupath
+                echo " not a live iso (c)"
+            		rm $menupath
             fi
         done
     done

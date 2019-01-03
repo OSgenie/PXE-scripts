@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
-scriptdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 http_preseed_root=/var/nfs/pxeboot/preseed
+binary_dir=/usr/local/bin
+application_dir=$binary_dir/iso2pxe
 
 function check_for_sudo ()
 {
@@ -12,41 +14,42 @@ function check_for_sudo ()
 
 function install_config_source_local_bin ()
 {
-	echo "server_ip=$(/sbin/ifconfig eth0 | grep 'inet addr' | cut -d: -f2 | awk '{print $1}')" | tee $scriptdir/pxe.config
-	echo "tftp_folder=/var/lib/tftpboot" | tee -a $scriptdir/pxe.config
-	echo "nfs_server=\$server_ip" | tee -a $scriptdir/pxe.config
-	echo "seed_path=http://\$server_ip/preseed" | tee -a $scriptdir/pxe.config
-	install $scriptdir/pxe.config /usr/local/bin/pxe.config
+	echo "server_ip=$(/sbin/ifconfig eth0 | grep 'inet addr' | cut -d: -f2 | awk '{print $1}')" | tee $script_dir/pxe.config
+	echo "tftp_folder=/var/lib/tftpboot" | tee -a $script_dir/pxe.config
+	echo "nfs_server=\$server_ip" | tee -a $script_dir/pxe.config
+	echo "seed_path=http://\$server_ip/preseed" | tee -a $script_dir/pxe.config
+	install $script_dir/pxe.config $application_directory/pxe.config
 }
 function install_scripts_local_bin ()
 {
-	install $scriptdir/build-pxemenus.sh /usr/local/bin/build-pxemenus
-	install $scriptdir/create-install-menus.sh /usr/local/bin/create-install-menus.sh
-	install $scriptdir/create-live-menus.sh /usr/local/bin/create-live-menus.sh
-	install $scriptdir/create-submenus.sh /usr/local/bin/create-submenus.sh
-	install $scriptdir/create-stock-menus.sh /usr/local/bin/create-stock-menus.sh
-	install $scriptdir/create-main-menu.sh /usr/local/bin/create-main-menu.sh
-	install $scriptdir/create-server-alternate-menus.sh /usr/local/bin/create-server-alternate-menus.sh
-	#install $scriptdir/create-utility-menu.sh /usr/local/bin/create-utility-menu.sh
-	install $scriptdir/nfs-extract-iso.sh /usr/local/bin/extract-isos
-	install $scriptdir/remove-older-iso-revisions.sh /usr/local/bin/remove-older-iso-revisions
-	install $scriptdir/generate-update-lists.sh /usr/local/bin/generate-update-lists
-	install $scriptdir/get-torrents.sh /usr/local/bin/get-torrents
-	cp -r $scriptdir/torrent.configs /usr/local/bin/
+	install -d $application_directory
+	install $script_dir/build-pxemenus.sh $application_directory/build-pxemenus
+	install $script_dir/create-install-menus.sh $application_directory/create-install-menus
+	install $script_dir/create-live-menus.sh $application_directory/create-live-menus
+	install $script_dir/create-submenus.sh $application_directory/create-submenus
+	install $script_dir/create-stock-menus.sh $application_directory/create-stock-menus
+	install $script_dir/create-main-menu.sh $application_directory/create-main-menu
+	install $script_dir/create-server-alternate-menus.sh $application_directory/create-server-alternate-menus
+	#install $script_dir/create-utility-menu.sh $application_directory/create-utility-menu
+	install $script_dir/nfs-extract-iso.sh $application_directory/extract-isos
+	install $script_dir/remove-older-iso-revisions.sh $application_directory/remove-older-iso-revisions
+	install $script_dir/generate-update-lists.sh $application_directory/generate-update-lists
+	install $script_dir/get-torrents.sh $application_directory/get-torrents
+	cp -r $script_dir/torrent.configs $application_directory/
 }
 
 function configure_crontab ()
 {
 	echo "# m h  dom mon dow   command" | crontab -
-	crontab -l | { cat; echo "*/10 * * * * /usr/local/bin/build-pxemenus  > /var/log/build-pxemenus.log"; } | crontab -
-	crontab -l | { cat; echo "2-52/10 * * * * /usr/local/bin/extract-isos  > /var/log/extract-isos.log"; } | crontab -
-	crontab -l | { cat; echo "@weekly /usr/local/bin/remove-older-iso-revisions  > /var/log/remove-older-isos.log"; } | crontab -
-	crontab -l | { cat; echo "@weekly /usr/local/bin/get-torrents  > /var/log/get-torrents.log"; } | crontab -
+	crontab -l | { cat; echo "*/10 * * * * $application_directory/build-pxemenus  > /var/log/build-pxemenus.log"; } | crontab -
+	crontab -l | { cat; echo "2-52/10 * * * * $application_directory/extract-isos  > /var/log/extract-isos.log"; } | crontab -
+	crontab -l | { cat; echo "@weekly $application_directory/remove-older-iso-revisions  > /var/log/remove-older-isos.log"; } | crontab -
+	crontab -l | { cat; echo "@weekly $application_directory/get-torrents  > /var/log/get-torrents.log"; } | crontab -
 }
 
 function copy_preseeds ()
 {
-	cp -uv $scriptdir/preseed/* $http_preseed_root/
+	cp -uv $script_dir/preseed/* $http_preseed_root/
 }
 
 check_for_sudo

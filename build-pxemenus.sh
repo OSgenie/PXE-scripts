@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
-scriptdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
-$scriptdir/create-install-menus.sh
-$scriptdir/create-live-menus.sh
-$scriptdir/create-stock-menus.sh
-$scriptdir/create-server-alternate-menus.sh
-#$scriptdir/create-utility-menu.sh
-$scriptdir/create-submenus.sh
-$scriptdir/create-main-menu.sh
+iso2pxe/create-install-menus
+iso2pxe/create-live-menus
+iso2pxe/create-stock-menus
+iso2pxe/create-server-alternate-menus
+#iso2pxe/create-utility-menu
+iso2pxe/create-submenus
+iso2pxe/create-main-menu

@@ -48,8 +48,10 @@ for folder in $menus; do
         fullname=$(basename $conf_file)
         extension=${fullname##*.}
         name=$(basename $conf_file .$extension)
-        if [ $extension == ".conf" ]; then
+        if [ ! -z $extension ] && [ $extension == "conf" ]; then
             generate_distro_submenus
+        else
+            break
         fi
     done
 done

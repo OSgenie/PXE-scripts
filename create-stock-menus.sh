@@ -62,48 +62,55 @@ function generate_stock_menu ()
 			for subfolder in $subfolderarray; do
 			revision=$(basename "$subfolder")
 			tftp_boot_folder=boot/$distro/$revision
-
 			if [ -e $subfolder/casper ]; then
 					boot_folder=casper
-				if [ -e $subfolder/casper/initrd.lz ]; then
-						distro_ram_disk=initrd.lz
-						pxe_boot_stock_iso
-				elif [ -e $subfolder/casper/initrd.gz ]; then
-						distro_ram_disk=initrd.gz
-						pxe_boot_stock_iso
-				elif [ -e $subfolder/casper/initrd ]; then
-						distro_ram_disk=initrd
-						pxe_boot_stock_iso
-				fi
-				if [ -f $subfolder/casper/vmlinuz ]; then
-					distro_kernel=vmlinuz
-				elif [ -f $subfolder/casper/vmlinuz.efi ]; then
-					distro_kernel=vmlinuz.efi
-				else
-					echo "ERROR - $distro-$revision"
-					echo "Kernel Not Found!!"
-				fi
-			elif [ -e "$subfolder/live/initrd.img" ]; then
+						if [ -f $subfolder/casper/vmlinuz ]; then
+								distro_kernel=vmlinuz
+						elif [ -f $subfolder/casper/vmlinuz.efi ]; then
+								distro_kernel=vmlinuz.efi
+						else
+							echo "ERROR - $distro-$revision"
+							echo "Kernel Not Found!!"
+						fi
+						if [ -e $subfolder/casper/initrd.lz ]; then
+								distro_ram_disk=initrd.lz
+						elif [ -e $subfolder/casper/initrd.gz ]; then
+								distro_ram_disk=initrd.gz
+						elif [ -e $subfolder/casper/initrd ]; then
+								distro_ram_disk=initrd
+						fi
+			elif [ -e $subfolder/live ]; then
 					boot_folder=live
-					distro_ram_disk=initrd.img
-					if [ -f $subfolder/live/vmlinuz ]; then
-						distro_kernel=vmlinuz
-					elif [ -f $subfolder/live/vmlinuz.efi ]; then
-						distro_kernel=vmlinuz.efi
-					else
-						echo "ERROR - $distro-$revision"
-						echo "Kernel Not Found!!"
-					fi
-					pxe_boot_stock_iso
-			elif [ -e "$subfolder/install/initrd.gz" ]; then
+						if [ -e $subfolder/live/initrd.img ]; then
+						distro_ram_disk=initrd.img
+						fi
+						if [ -f $subfolder/live/vmlinuz ]; then
+							distro_kernel=vmlinuz
+						elif [ -f $subfolder/live/vmlinuz.efi ]; then
+							distro_kernel=vmlinuz.efi
+						else
+							echo "ERROR - $distro-$revision"
+							echo "Kernel Not Found!!"
+						fi
+			elif [ -e $subfolder/install ]; then
 					boot_folder=install
-					distro_ram_disk=initrd.gz
-					distro_kernel=vmlinuz
-					pxe_boot_stock_iso
-	    else
-		  		echo "ERROR - $distro-$revision"
-					echo "RAM Disk Not Found!!"
-			  	rm $menupath
+						if [ -e $subfolder/install/initrd.gz ]; then
+							distro_ram_disk=initrd.gz
+						fi
+						if [ -f $subfolder/install/vmlinuz ]; then
+							distro_kernel=vmlinuz
+						fi
+			fi
+			if [ -z $distro_ram_disk ]; then
+				echo "ERROR - $distro-$revision"
+				echo "RAM Disk Not Found!!"
+				rm $menupath
+			elif [ -z $distro_kernel ]; then
+				echo "ERROR - $distro-$revision"
+				echo "Kernel Not Found!!"
+				rm $menupath
+			else
+				pxe_boot_stock_iso
 			fi
 			done
 		done

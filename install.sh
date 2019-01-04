@@ -20,6 +20,7 @@ function install_config_source_local_bin ()
 	echo "seed_path=http://\$server_ip/preseed" | tee -a $script_dir/pxe.config
 	install $script_dir/pxe.config $binary_dir/pxe.config
 }
+
 function install_scripts_local_bin ()
 {
 	install -d $binary_dir

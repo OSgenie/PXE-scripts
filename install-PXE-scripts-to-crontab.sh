@@ -29,7 +29,7 @@ function install_scripts_local_bin ()
 	install $script_dir/create-submenus.sh $binary_dir/create-submenus
 	install $script_dir/create-stock-menus.sh $binary_dir/create-stock-menus
 	install $script_dir/create-server-alternate-menus.sh $binary_dir/create-server-alternate-menus
-	install $script_dir/create-netboot-menu.sh $binary_dir/create-netboot-menu
+	install $script_dir/create-netboot-menus.sh $binary_dir/create-netboot-menus
 #install $script_dir/create-utility-menu.sh $binary_dir/create-utility-menu
 	install $script_dir/create-main-menu.sh $binary_dir/create-main-menu
 	install $script_dir/nfs-extract-iso.sh $binary_dir/extract-isos

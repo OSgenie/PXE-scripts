@@ -42,7 +42,7 @@ EOM
 
 function refresh_distro_menus ()
 {
-  #find /var/lib/tftpboot/menus/ -type f -name '*.conf' -delete
+  find /var/lib/tftpboot/menus/ -type f -name '*.conf' -delete
   menus=$( ls $tftp_folder/menus )
   for folder in $menus; do
       generate_distro_menu_header

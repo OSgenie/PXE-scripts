@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+find /var/lib/tftpboot/menus/ -type f -name '*.conf' -delete
+
 create-install-menus
 create-live-menus
 create-stock-menus

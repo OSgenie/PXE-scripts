@@ -14,15 +14,17 @@ fi
 
 function generate_distro_menu_header ()
 {
-echo $folder
-menupath="$tftp_folder/menus/$folder.conf"
-cat > $menupath <<EOM
-MENU TITLE --== $folder Menu ==--
+  echo "**********************************************"
+  echo "       $folder"
+  echo "**********************************************"
+  menupath="$tftp_folder/menus/$folder.conf"
+  cat > $menupath <<EOM
+  MENU TITLE --== $folder Menu ==--
 
-LABEL rootmenu
-MENU LABEL <---- Main Menu
-kernel vesamenu.c32
-append mainmenu.conf
+  LABEL rootmenu
+  MENU LABEL <---- Main Menu
+  kernel vesamenu.c32
+  append mainmenu.conf
 
 EOM
 }

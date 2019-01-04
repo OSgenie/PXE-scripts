@@ -14,10 +14,10 @@ for distros in $distro_dir/*; do
         for release in $releases; do
           for i in {6..0}; do
             source $distro_dir/$distros/$distro".config"
+            cd $download_folder
             if [ -f $distro"-"$release"."$i"-"$flavor"-"$arch".iso.torrent.added" ] || [ -f  $distro"-"$release"-"$flavor"-"$arch".iso.torrent.added" ];then
               break
             fi
-            cd $download_folder
             if [ $i == 0 ];then
               echo "checking "$release_server"/"$release_folder"/"$distro"-"$release"-"$flavor"-"$arch".iso.torrent"
               /usr/bin/wget -t 1 -T 1 $release_server"/"$release_folder"/"$distro"-"$release"-"$flavor"-"$arch".iso.torrent"

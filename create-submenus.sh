@@ -15,7 +15,7 @@ function check_for_sudo ()
 function generate_distro_menu_header ()
 {
   echo "**********************************************"
-  echo "      Creating $folder Menus"
+  echo "        Creating Master $folder Menu"
   echo "**********************************************"
   menupath="$tftp_folder/menus/$folder.conf"
   cat > $menupath <<EOM

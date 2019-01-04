@@ -7,6 +7,7 @@ source preseed.configs/domain.config
 ## ADD LOGIC in generating preseeds as well as PXE menus
 # for default preseed
 # for server suite
+# change
 source preseed.configs/server-default.config
 
 cat > $http_preseed_root/uinstall << \
@@ -19,11 +20,14 @@ EOF
   d-i	console-setup/layoutcode	string us
   d-i	console-setup/variantcode	string
   # Network Settings
+  d-i netcfg/disable_autoconfig boolean true
+  d-i netcfg/dhcp_failed note
+  d-i netcfg/dhcp_options select Configure network manually
   d-i	netcfg/get_nameservers	string $dns_name_servers
   d-i	netcfg/get_ipaddress	string $ip_address
   d-i	netcfg/get_netmask	string $network_netmask
   d-i	netcfg/get_gateway	string $network_gateway
-  d-i	netcfg/confirm_static	boolean false
+  d-i	netcfg/confirm_static	boolean true
   # This automatically creates a standard unencrypted partitioning scheme.
   d-i partman-auto/disk string /dev/sda
   d-i partman-auto/method string regular
@@ -35,26 +39,26 @@ EOF
   d-i partman-auto/expert_recipe string \\
           unencrypted-install :: \\
                   1024 1024 1024 ext4 \\
-                          \\$primary{ } \\$bootable{ } \\
+                          \$primary{ } \$bootable{ } \\
                           method{ format } format{ } \\
                           use_filesystem{ } filesystem{ ext4 } \\
                           mountpoint{ /boot } \\
                   . \\
                   150% 150% 150% linux-swap \\
-                          \\$primary{ } \\
+                          \$primary{ } \\
                           method{ swap } format{ } \\
                   . \\
                   17408 100000000000 -1 ext4 \\
-                          \\$primary{ } \\
+                          \$primary{ } \\
                           method{ format } format{ } \\
                           use_filesystem{ } filesystem{ ext4 } \\
                           mountpoint{ / } \\
                   .
-  d-i partman-md/confirm boolean false
-  d-i partman-partitioning/confirm_write_new_label boolean false
+  d-i partman-md/confirm boolean true
+  d-i partman-partitioning/confirm_write_new_label boolean true
   d-i partman/choose_partition select finish
-  d-i partman/confirm boolean false
-  d-i partman/confirm_nooverwrite boolean false
+  d-i partman/confirm boolean true
+  d-i partman/confirm_nooverwrite boolean true
   # Time Settings
   d-i clock-setup/utc boolean true
   d-i time/zone string US/Eastern

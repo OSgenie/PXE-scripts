@@ -18,7 +18,7 @@ function generate_distro_menu_header ()
   echo "      Creating $folder Menus"
   echo "**********************************************"
   menupath="$tftp_folder/menus/$folder.conf"
-  cat > $menupath << EOM
+  cat > $menupath <<EOM
   MENU TITLE --== $folder Menu ==--
 
   LABEL rootmenu
@@ -32,7 +32,7 @@ EOM
 function generate_distro_submenus ()
 {
   echo $fullname
-  cat >> $menupath << EOM
+  cat >> $menupath <<EOM
   LABEL $name
   MENU LABEL $name --->
   kernel vesamenu.c32
@@ -42,7 +42,7 @@ EOM
 
 function refresh_distro_menus ()
 {
-  find /var/lib/tftpboot/menus/ -type f -name '*.conf' -delete
+  #find /var/lib/tftpboot/menus/ -type f -name '*.conf' -delete
   menus=$( ls $tftp_folder/menus )
   for folder in $menus; do
       generate_distro_menu_header

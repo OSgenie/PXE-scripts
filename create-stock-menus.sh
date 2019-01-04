@@ -28,22 +28,7 @@ MENU LABEL <---- Stock Menu
 EOM
 }
 
-function stock_casper_initrd_lz ()
-{
-kernelpath=$bootfolder/casper
-mkdir -p $tftp_folder/$kernelpath
-cp -uv $subfolder/casper/vmlinuz $tftp_folder/$kernelpath/
-cp -uv $subfolder/casper/initrd.lz $tftp_folder/$kernelpath/
-cat >> $menupath << EOM
-LABEL $revision
-MENU LABEL $revision
-    kernel $kernelpath/vmlinuz
-    append initrd=$kernelpath/initrd.lz noprompt boot=casper url=$seed_path/$seed_file netboot=nfs nfsroot=$nfs_root_path/$distro/$revision ro toram -
-
-EOM
-}
-
-function stock_casper_initrd_gz ()
+function stock_casper_initrd ()
 {
 kernelpath=$bootfolder/casper
 mkdir -p $tftp_folder/$kernelpath
@@ -52,13 +37,13 @@ cp -uv $subfolder/casper/initrd.gz $tftp_folder/$kernelpath/
 cat >> $menupath << EOM
 LABEL $revision
 MENU LABEL $revision
-    kernel $kernelpath/vmlinuz
-    append initrd=$kernelpath/initrd.gz noprompt boot=casper url=$seed_path/$seed_file netboot=nfs nfsroot=$nfs_root_path/$distro/$revision ro toram -
+    kernel $kernelpath/$distro_kernel
+    append initrd=$kernelpath/$distro_ram_disk noprompt boot=casper url=$seed_path/$seed_file netboot=nfs nfsroot=$nfs_root_path/$distro/$revision ro toram -
 
 EOM
 }
 
-function stock_live_initrd_img ()
+function stock_live_initrd ()
 {
 kernelpath=$bootfolder/live
 mkdir -p $tftp_folder/$kernelpath
@@ -67,8 +52,23 @@ cp -uv $subfolder/live/initrd.img $tftp_folder/$kernelpath/
 cat >> $menupath << EOM
 LABEL $revision
 MENU LABEL $revision
-    kernel $kernelpath/vmlinuz
-    append initrd=$kernelpath/initrd.img noprompt boot=live url=$seed_path/$seed_file netboot=nfs nfsroot=$nfs_root_path/$distro/$revision ro toram -
+    kernel $kernelpath/$distro_kernel
+    append initrd=$kernelpath/$distro_ram_disk noprompt boot=live url=$seed_path/$seed_file netboot=nfs nfsroot=$nfs_root_path/$distro/$revision ro toram -
+
+EOM
+}
+
+function stock_install_initrd ()
+{
+kernelpath=$bootfolder/live
+mkdir -p $tftp_folder/$kernelpath
+cp -uv $subfolder/live/vmlinuz $tftp_folder/$kernelpath/
+cp -uv $subfolder/live/initrd.img $tftp_folder/$kernelpath/
+cat >> $menupath << EOM
+LABEL $revision
+MENU LABEL $revision
+    kernel $kernelpath/$distro_kernel
+    append initrd=$kernelpath/$distro_ram_disk noprompt boot=install url=$seed_path/$seed_file netboot=nfs nfsroot=$nfs_root_path/$distro/$revision ro toram -
 
 EOM
 }
@@ -88,15 +88,33 @@ distro_title
 		for subfolder in $subfolderarray; do
 		revision=$(basename "$subfolder")
 		bootfolder=boot/$distro/$revision
+		if [ -f $subfolder/casper/vmlinuz ]; then
+			distro_kernel=vmlinuz
+		elif [ -f $subfolder/casper/vmlinuz.efi ]; then
+			distro_kernel=vmlinuz.efi
+		else
+			echo "ERROR - $distro-$revision"
+			echo "Kernel Not Found!!"
+		fi
 		if [ -e "$subfolder/casper/initrd.lz" ]; then
-            stock_casper_initrd_lz
+				distro_ram_disk=casper/initrd.lz
+				stock_casper_initrd
 		elif [ -e "$subfolder/casper/initrd.gz" ]; then
-            stock_casper_initrd_gz
+				distro_ram_disk=casper/initrd.gz
+				stock_casper_initrd
+		elif [ -e "$subfolder/casper/initrd" ]; then
+				distro_ram_disk=casper/initrd
+				stock_casper_initrd
 		elif [ -e "$subfolder/live/initrd.img" ]; then
-            stock_live_initrd_img
-        else
-		  echo "ERROR - $distro-$revision"
-		  rm $menupath
+				distro_ram_disk=live/initrd.img
+				stock_live_initrd
+		elif [ -e "$subfolder/install/initrd.gz" ]; then
+				distro_ram_disk=install/initrd.gz
+				stock_install_initrd
+    else
+	  		echo "ERROR - $distro-$revision"
+				echo "RAM Disk Not Found!!"
+		  	rm $menupath
 		fi
 		done
 	done

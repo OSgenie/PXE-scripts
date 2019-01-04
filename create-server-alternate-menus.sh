@@ -58,28 +58,32 @@ EOM
 
 function generate_server_menu ()
 {
-mount -t nfs4 $nfs_path /mnt/
-for folder in /mnt/stock/*; do
-    distro=$(basename "$folder")
-    menupath="$tftp_folder/menus/server/$distro.conf"
-    distro_title
-	# PXE boot menu entry for each iso
-	revisions=$( ls -r $folder )
-	for revision in $revisions; do
-	subfolderarray=$folder/$revision
-		for subfolder in $subfolderarray; do
-		revision=$(basename "$subfolder")
-		bootfolder=boot/$distro/$revision
-        if [ -e "$subfolder/install/netboot" ]; then
-            echo "creating Server - $distro menu..."
-            server_install_netboot
-        else
-            rm $menupath
-		fi
+	echo "**********************************************"
+	echo "			Server Menus"
+	echo "**********************************************"
+
+	mount -t nfs4 $nfs_path /mnt/
+	for folder in /mnt/stock/*; do
+	    distro=$(basename "$folder")
+	    menupath="$tftp_folder/menus/server/$distro.conf"
+	    distro_title
+		# PXE boot menu entry for each iso
+		revisions=$( ls -r $folder )
+		for revision in $revisions; do
+		subfolderarray=$folder/$revision
+			for subfolder in $subfolderarray; do
+			revision=$(basename "$subfolder")
+			bootfolder=boot/$distro/$revision
+	        if [ -e "$subfolder/install/netboot" ]; then
+	            echo "creating Server - $distro menu..."
+	            server_install_netboot
+	        else
+	            rm $menupath
+			fi
+			done
 		done
 	done
-done
-umount /mnt
+	umount /mnt
 }
 
 check_for_sudo

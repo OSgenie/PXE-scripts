@@ -63,34 +63,38 @@ EOM
 
 function generate_live_menu ()
 {
-mount -t nfs4 $nfs_path /mnt/
-for folder in /mnt/stock/*; do
-    distro=$(basename "$folder")
-    menupath="$tftp_folder/menus/live/$distro.conf"
-    echo "creating Live - $distro menu..."
-    distro_title
-    # PXE boot menu entry for each iso
-    revisions=$( ls -r $folder )
-    for revision in $revisions; do
-        if [ ! "$revision" = "gold" ]; then
-            revdate=$(date --rfc-3339=seconds -d @$revision)
-        else
-            revdate=$revision
-        fi
-        subfolderarray=$folder/$revision
-        for subfolder in $subfolderarray; do
-            revision=$(basename "$subfolder")
-            bootfolder=boot/$distro/$revision
-            if [ -d "$subfolder/casper/" ]; then
-                live_casper
-            else
-                echo " not a live iso (c)"
-            		rm $menupath
-            fi
-        done
-    done
-done
-umount /mnt/
+	echo "**********************************************"
+	echo "			Live Menus"
+	echo "**********************************************"
+
+	mount -t nfs4 $nfs_path /mnt/
+	for folder in /mnt/stock/*; do
+	    distro=$(basename "$folder")
+	    menupath="$tftp_folder/menus/live/$distro.conf"
+	    echo "creating Live - $distro menu..."
+	    distro_title
+	    # PXE boot menu entry for each iso
+	    revisions=$( ls -r $folder )
+	    for revision in $revisions; do
+	        if [ ! "$revision" = "gold" ]; then
+	            revdate=$(date --rfc-3339=seconds -d @$revision)
+	        else
+	            revdate=$revision
+	        fi
+	        subfolderarray=$folder/$revision
+	        for subfolder in $subfolderarray; do
+	            revision=$(basename "$subfolder")
+	            bootfolder=boot/$distro/$revision
+	            if [ -d "$subfolder/casper/" ]; then
+	                live_casper
+	            else
+	                echo " not a live iso (c)"
+	            		rm $menupath
+	            fi
+	        done
+	    done
+	done
+	umount /mnt/
 }
 
 check_for_sudo

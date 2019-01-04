@@ -53,7 +53,6 @@ function generate_conf_menus ()
 {
   echo "**********************************************"
   echo "      Creating Main Menu"
-  echo "**********************************************"
   for subfolder in $tftp_folder/*; do
       directory=$(dirname $subfolder)
       foldername=$(basename $subfolder)
@@ -66,6 +65,7 @@ function generate_conf_menus ()
                 conf_menu
             fi
         done
+      echo "**********************************************"
       fi
   done
 }

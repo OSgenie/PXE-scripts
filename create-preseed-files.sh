@@ -30,6 +30,7 @@ EOF
   d-i	netcfg/get_gateway	string $network_gateway
   d-i	netcfg/confirm_static	boolean true
   # This automatically creates a standard unencrypted partitioning scheme.
+  d-i partman-auto/init_automatically_partition select Manual
   d-i partman-auto/disk string /dev/sda
   d-i partman-auto/method string regular
   d-i partman-lvm/device_remove_lvm boolean true
@@ -99,6 +100,6 @@ EOF
   d-i	debian-installer/exit/halt	boolean false
   d-i	debian-installer/exit/poweroff	boolean false
   # Post System Installation Tasks
-  d-i	pkgsel/include string byobu vim openssh-server git-core landscape-common
-  byobu	byobu/launch-by-default boolean true
+#  d-i	pkgsel/include string byobu vim openssh-server git-core landscape-common
+#  byobu	byobu/launch-by-default boolean true
 EOF

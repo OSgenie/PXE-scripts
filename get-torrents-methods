@@ -1,0 +1,8 @@
+wget -T 1 -t 1 --accept torrent html --mirror --page-requisites --adjust-extension --no-parent \
+https://torrents.linuxmint.com/
+
+
+
+wget -d -r -np -N --spider -e robots=off --no-check-certificate \
+  http://releases.ubuntu.com/12.04/ \
+  2>&1 | grep " -> " | grep -E "*.iso.torrent" | sed "s/.* -> //"

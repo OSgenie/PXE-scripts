@@ -39,22 +39,12 @@ EOM
 
 function conf_menu ()
 {
+  echo "    Adding $fullname"
   cat >> $menupath << EOM
   LABEL $name
   MENU LABEL $name --->
   kernel vesamenu.c32
   append /$foldername/$fullname
-  #
-EOM
-}
-
-function conf_submenus ()
-{
-  cat >> $menupath << EOM
-  LABEL $name
-  MENU LABEL $name --->
-  kernel vesamenu.c32
-  append $foldername/menus/$fullname
   #
 EOM
 }

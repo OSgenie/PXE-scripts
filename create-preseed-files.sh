@@ -33,9 +33,7 @@ EOF
   d-i partman-auto/method string regular
   d-i partman-lvm/device_remove_lvm boolean true
   d-i partman-md/device_remove_md boolean true
-  d-i partman-lvm/confirm boolean true
-  d-i partman-lvm/confirm_nooverwrite boolean true
-  d-i partman-auto/choose_recipe select unencrypted-install
+  d-i partman-auto/choose_recipe select expert_recipe
   d-i partman-auto/expert_recipe string \\
           unencrypted-install :: \\
                   1024 1024 1024 ext4 \\

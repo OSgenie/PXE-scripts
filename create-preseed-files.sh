@@ -32,24 +32,25 @@ EOF
   d-i partman-lvm/confirm boolean true
   d-i partman-lvm/confirm_nooverwrite boolean true
   d-i partman-auto/choose_recipe select unencrypted-install
-  d-i partman-auto/expert_recipe string \
-          unencrypted-install :: \
-                  1024 1024 1024 ext4 \
-                          \$primary{ } \$bootable{ } \
-                          method{ format } format{ } \
-                          use_filesystem{ } filesystem{ ext4 } \
-                          mountpoint{ /boot } \
-                  . \
-                  150% 150% 150% linux-swap \
-                          \$primary{ } \
-                          method{ swap } format{ } \
-                  . \
-                  17408 100000000000 -1 ext4 \
-                          \$primary{ } \
-                          method{ format } format{ } \
-                          use_filesystem{ } filesystem{ ext4 } \
-                          mountpoint{ / } \
+  d-i partman-auto/expert_recipe string \\
+          unencrypted-install :: \\
+                  1024 1024 1024 ext4 \\
+                          \\$primary{ } \\$bootable{ } \\
+                          method{ format } format{ } \\
+                          use_filesystem{ } filesystem{ ext4 } \\
+                          mountpoint{ /boot } \\
+                  . \\
+                  150% 150% 150% linux-swap \\
+                          \\$primary{ } \\
+                          method{ swap } format{ } \\
+                  . \\
+                  17408 100000000000 -1 ext4 \\
+                          \\$primary{ } \\
+                          method{ format } format{ } \\
+                          use_filesystem{ } filesystem{ ext4 } \\
+                          mountpoint{ / } \\
                   .
+
   d-i partman-md/confirm boolean false
   d-i partman-partitioning/confirm_write_new_label boolean false
   d-i partman/choose_partition select finish
@@ -80,7 +81,7 @@ EOF
   d-i mirror/http/mirror select CC.archive.ubuntu.com
   d-i mirror/http/proxy string http://$server_ip:3142/
 
-  d-i	debian-installer/allow_unauthenticated	string false
+  d-i debian-installer/allow_unauthenticated	string false
   d-i	pkgsel/upgrade	select safe-upgrade
   d-i	pkgsel/language-packs	multiselect
   d-i	pkgsel/update-policy	select none

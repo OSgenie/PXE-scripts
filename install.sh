@@ -14,16 +14,16 @@ function check_for_sudo ()
 
 function install_config_source_local_bin ()
 {
-	echo "server_ip=$(/sbin/ifconfig eth0 | grep 'inet addr' | cut -d: -f2 | awk '{print $1}')" | tee $script_dir/pxe.config
-	echo "tftp_folder=/var/lib/tftpboot" | tee -a $script_dir/pxe.config
-	echo "nfs_server=\$server_ip" | tee -a $script_dir/pxe.config
-	echo "seed_path=http://\$server_ip/preseed" | tee -a $script_dir/pxe.config
-	install $script_dir/pxe.config $binary_dir/pxe.config
+	cat > $binary_dir/pxe.config << EOF
+	server_ip=$(/sbin/ifconfig eth0 | grep 'inet addr' | cut -d: -f2 | awk '{print $1}')
+	tftp_folder=/var/lib/tftpboot
+	nfs_server=\$server_ip
+	seed_path=http://\$server_ip/preseed
+EOF
 }
 
 function install_scripts_local_bin ()
 {
-	install -d $binary_dir
 	install $script_dir/build-pxemenus.sh $binary_dir/build-pxemenus
 	install $script_dir/create-install-menus.sh $binary_dir/create-install-menus
 	install $script_dir/create-live-menus.sh $binary_dir/create-live-menus
@@ -38,6 +38,8 @@ function install_scripts_local_bin ()
 	install $script_dir/generate-update-lists.sh $binary_dir/generate-update-lists
 	install $script_dir/get-torrents.sh $binary_dir/get-torrents
 	cp -r $script_dir/torrent.configs $binary_dir/
+	install $script_dir/create-preseed-files.sh $binary_dir/create-preseed-files
+	cp -r $script_dir/preseed.configs $binary_dir/
 }
 
 function configure_crontab ()
@@ -49,13 +51,13 @@ function configure_crontab ()
 	crontab -l | { cat; echo "@weekly $binary_dir/get-torrents  > $log_dir/get-torrents.log"; } | crontab -
 }
 
-function copy_preseeds ()
+function generate_preseeds ()
 {
-	cp -uv $script_dir/preseed/* $http_preseed_root/
+	create-preseed-files
 }
 
 check_for_sudo
 install_config_source_local_bin
 install_scripts_local_bin
-copy_preseeds
 configure_crontab
+generate_preseeds

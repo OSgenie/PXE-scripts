@@ -39,7 +39,7 @@ function pxe_boot_stock_iso ()
 	LABEL $revision
 	MENU LABEL $revision
 	    kernel $kernelpath/$distro_kernel
-	    append initrd=$kernelpath/$distro_ram_disk noprompt boot=$boot_folder url=$seed_path/$seed_file netboot=nfs nfsroot=$nfs_root_path/$distro/$revision ro toram -
+	    append initrd=$kernelpath/$distro_ram_disk noprompt locale=en_US boot=$boot_folder url=$seed_path/$seed_file root=/dev/nfs netboot=nfs nfsroot=$nfs_root_path/$distro/$revision ro toram -
 
 EOM
 }

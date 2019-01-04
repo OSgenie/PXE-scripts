@@ -16,7 +16,7 @@ function check_for_sudo ()
 
 function generate_main_menu_header ()
 {
-  cat > $menupath <<EOM
+  cat > $menupath << EOM
   DEFAULT vesamenu.c32
   PROMPT 0
   TIMEOUT 200 #this is optional - will start the default after 20 seconds
@@ -66,23 +66,13 @@ function generate_conf_menus ()
   echo "**********************************************"
   for subfolder in $tftp_folder/*; do
       directory=$(dirname $subfolder)
-      foldername=$(basename "$subfolder")
+      foldername=$(basename $subfolder)
       for conf_file in $subfolder/*; do
           fullname=$(basename $conf_file)
           extension=${fullname##*.}
           name=$(basename $conf_file .$extension)
           if [ ! -z $extension ] && [ $extension == "conf" ]; then
               conf_menu
-          elif [ ! -z $fullname ] && [ $fullname == "menus" ]; then
-              for menu in $subfolder/menus/*; do
-                  echo $menu
-                  fullname=$(basename $menu)
-                  extension=${fullname##*.}
-                  name=$(basename $menu .$extension)
-                  if [ ! -z $extension ] && [ $extension == "conf" ]; then
-                  conf_submenus
-                  fi
-              done
           fi
       done
   done

@@ -67,24 +67,16 @@ function generate_conf_menus ()
   for subfolder in $tftp_folder/*; do
       directory=$(dirname $subfolder)
       foldername=$(basename $subfolder)
-      for conf_file in $subfolder/*; do
-          fullname=$(basename $conf_file)
-          extension=${fullname##*.}
-          name=$(basename $conf_file .$extension)
-          if [ ! -z $extension ] && [ $extension == "conf" ]; then
-              conf_menu
-          elif [ ! -z $fullname ] && [ $fullname == "menus" ]; then
-              for menu in $subfolder/menus/*; do
-                  echo $menu
-                  fullname=$(basename $menu)
-                  extension=${fullname##*.}
-                  name=$(basename $menu .$extension)
-                  if [ ! -z $extension ] && [ $extension == "conf" ]; then
-                  conf_submenus
-                  fi
-              done
-          fi
-      done
+      if [ -d $subfolder ]; then
+        for conf_file in $subfolder/*; do
+            fullname=$(basename $conf_file)
+            extension=${fullname##*.}
+            name=$(basename $conf_file .$extension)
+            if [ ! -z $extension ] && [ $extension == "conf" ]; then
+                conf_menu
+            fi
+        done
+      fi
   done
 }
 

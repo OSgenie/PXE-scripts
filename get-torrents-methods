@@ -1,6 +1,7 @@
 wget -T 1 -t 1 --accept torrent html --mirror --page-requisites --adjust-extension --no-parent \
 https://torrents.linuxmint.com/
 
+ --spider
 
 
 wget -d -r -np -N --spider -e robots=off --no-check-certificate \

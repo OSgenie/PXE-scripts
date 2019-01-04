@@ -12,7 +12,7 @@ for distros in $distro_dir/*; do
       for flavor in $flavors; do
         source $distro_dir"/."$distros"/releases"
         for release in $releases; do
-          for i in {10..0}; do
+          for i in {6..0}; do
             source $distro_dir/$distros/$distro".config"
             if [ -f $distro"-"$release"."$i"-"$flavor"-"$arch".iso.torrent.added" ] || [ -f  $distro"-"$release"-"$flavor"-"$arch".iso.torrent.added" ];then
               break

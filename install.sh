@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-http_preseed_root=/var/nfs/pxeboot/preseed
 binary_dir=/usr/local/bin
 log_dir=/var/log
 

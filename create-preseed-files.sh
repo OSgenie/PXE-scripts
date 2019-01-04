@@ -1,5 +1,6 @@
 #!/bin/bash
 source pxe.config
+http_preseed_root=/var/nfs/pxeboot/preseed
 source preseed.configs/network.config
 source preseed.configs/domain.config
 

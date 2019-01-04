@@ -82,7 +82,7 @@ function generate_server_menu ()
 		subfolderarray=$folder/$revision
 			for subfolder in $subfolderarray; do
 			revision=$(basename "$subfolder")
-			bootfolder=boot/$distro/$revision
+			tftp_boot_folder=boot/$distro/$revision
 	        if [ -e "$subfolder/install/netboot" ]; then
 	            echo "creating Server - $distro menu..."
 	            server_install

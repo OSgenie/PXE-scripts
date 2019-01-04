@@ -33,4 +33,4 @@ for distros in $distro_dir/*; do
       done
     done
   done
-done  | tac
+done

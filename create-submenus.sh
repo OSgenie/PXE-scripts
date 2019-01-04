@@ -15,7 +15,7 @@ fi
 function generate_distro_menu_header ()
 {
   echo "**********************************************"
-  echo "       $folder"
+  echo "      Creating $folder Menus"
   echo "**********************************************"
   menupath="$tftp_folder/menus/$folder.conf"
   cat > $menupath <<EOM

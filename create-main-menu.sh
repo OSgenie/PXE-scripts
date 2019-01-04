@@ -62,7 +62,7 @@ EOM
 function generate_conf_menus ()
 {
   echo "**********************************************"
-  echo "    Creating Main Menu"
+  echo "      Creating Main Menu"
   echo "**********************************************"
   for subfolder in $tftp_folder/*; do
       directory=$(dirname $subfolder)

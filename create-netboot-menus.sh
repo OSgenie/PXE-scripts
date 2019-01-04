@@ -22,14 +22,14 @@ cat > $menupath << EOM
 MENU TITLE --== $distro ==--
 
 LABEL rootmenu
-        MENU LABEL <---- Server Menu
+        MENU LABEL <---- Netboot Menu
         kernel vesamenu.c32
-        append menus/server.conf
+        append menus/netboot.conf
 
 EOM
 }
 
-function server_install_netboot ()
+function pxe_install_netboot ()
 {
 if [[ $distro == *amd64* ]]; then
     cpu=amd64
@@ -56,12 +56,12 @@ MENU LABEL $revision
 EOM
 }
 
-function generate_server_menu ()
+function generate_netboot_menu ()
 {
 mount -t nfs4 $nfs_path /mnt/
 for folder in /mnt/stock/*; do
     distro=$(basename "$folder")
-    menupath="$tftp_folder/menus/server/$distro.conf"
+    menupath="$tftp_folder/menus/netboot/$distro.conf"
     distro_title
 	# PXE boot menu entry for each iso
 	revisions=$( ls -r $folder )
@@ -71,8 +71,8 @@ for folder in /mnt/stock/*; do
 		revision=$(basename "$subfolder")
 		bootfolder=boot/$distro/$revision
         if [ -e "$subfolder/install/netboot" ]; then
-            echo "creating Server - $distro menu..."
-            server_install_netboot
+            echo "creating Netboot - $distro menu..."
+            pxe_install_netboot
         else
             rm $menupath
 		fi
@@ -83,4 +83,4 @@ umount /mnt
 }
 
 check_for_sudo
-generate_server_menu
+generate_netboot_menu

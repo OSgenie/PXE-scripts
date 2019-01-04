@@ -29,31 +29,40 @@ LABEL rootmenu
 EOM
 }
 
-function server_install_netboot ()
+function pxe_boot_stock_iso ()
 {
-if [[ $distro == *amd64* ]]; then
-    cpu=amd64
-elif [[ $distro == *i386* ]]; then
-    cpu=i386
-fi
-if [ -e $subfolder/install/netboot/non-pae ]; then
-    kernelpath=$bootfolder/install/netboot/non-pae/ubuntu-installer/$cpu
-    mkdir -p $tftp_folder/$kernelpath
-    cp -uv $subfolder/install/netboot/non-pae/ubuntu-installer/$cpu/linux $tftp_folder/$kernelpath/
-    cp -uv $subfolder/install/netboot/non-pae/ubuntu-installer/$cpu/initrd.gz $tftp_folder/$kernelpath/
-else
-    kernelpath=$bootfolder/install/netboot/ubuntu-installer/$cpu
-    mkdir -p $tftp_folder/$kernelpath
-    cp -uv $subfolder/install/netboot/ubuntu-installer/$cpu/linux $tftp_folder/$kernelpath/
-    cp -uv $subfolder/install/netboot/ubuntu-installer/$cpu/initrd.gz $tftp_folder/$kernelpath/
-fi
-cat >> $menupath << EOM
-LABEL $revision
-MENU LABEL $revision
-    kernel $kernelpath/linux
-    append initrd=$kernelpath/initrd.gz priority=critical locale=en_US url=$seed_path/$seed_file netboot=nfs root=/dev/nfs nfsroot=$nfs_path/$distro/$revision/ ip=dhcp rw
-#url=$seed_path/$distro/$revision/preseed/ubuntu-server.seed
+	kernelpath=$tftp_boot_folder/$boot_folder
+	mkdir -p $tftp_folder/$kernelpath
+	cp -uv $subfolder/$boot_folder/$distro_kernel $tftp_folder/$kernelpath/
+	cp -uv $subfolder/$boot_folder/$distro_ram_disk $tftp_folder/$kernelpath/
+	cat >> $menupath << EOM
+	LABEL $revision
+	MENU LABEL $revision
+	    kernel $kernelpath/$distro_kernel
+	    append initrd=$kernelpath/$distro_ram_disk noprompt boot=$boot_folder url=$seed_path/$seed_file netboot=nfs nfsroot=$nfs_root_path/$distro/$revision ro toram -
+
 EOM
+}
+
+function server_install ()
+{
+	if [ -f $subfolder/install/vmlinuz ]; then
+		distro_kernel=vmlinuz
+	elif [ -f $subfolder/install/vmlinuz.efi ]; then
+		distro_kernel=vmlinuz.efi
+	else
+		echo "ERROR - $distro-$revision"
+		echo "Kernel Not Found!!"
+	fi
+	if [ -e "$subfolder/install/initrd.gz" ]; then
+		boot_folder=install
+		distro_ram_disk=initrd.gz
+		pxe_boot_stock_iso
+	else
+		echo "ERROR - $distro-$revision"
+		echo "RAM Disk Not Found!!"
+		rm $menupath
+	fi
 }
 
 function generate_server_menu ()
@@ -76,7 +85,7 @@ function generate_server_menu ()
 			bootfolder=boot/$distro/$revision
 	        if [ -e "$subfolder/install/netboot" ]; then
 	            echo "creating Server - $distro menu..."
-	            server_install_netboot
+	            server_install
 	        else
 	            rm $menupath
 			fi

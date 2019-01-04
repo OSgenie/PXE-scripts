@@ -42,8 +42,8 @@ function install_scripts_local_bin ()
 function configure_crontab ()
 {
 	echo "# m h  dom mon dow   command" | crontab -
-	crontab -l | { cat; echo "*/10 * * * * $binary_dir/build-pxemenus  > $log_dir/build-pxemenus.log"; } | crontab -
-	crontab -l | { cat; echo "2-52/10 * * * * $binary_dir/extract-isos  > $log_dir/extract-isos.log"; } | crontab -
+	crontab -l | { cat; echo "@hourly $binary_dir/extract-isos  > $log_dir/extract-isos.log"; } | crontab -
+	crontab -l | { cat; echo "@daily $binary_dir/build-pxemenus  > $log_dir/build-pxemenus.log"; } | crontab -
 	crontab -l | { cat; echo "@weekly $binary_dir/remove-older-iso-revisions  > $log_dir/remove-older-isos.log"; } | crontab -
 	crontab -l | { cat; echo "@weekly $binary_dir/get-torrents  > $log_dir/get-torrents.log"; } | crontab -
 }

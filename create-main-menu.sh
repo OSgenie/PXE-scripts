@@ -73,6 +73,16 @@ function generate_conf_menus ()
           name=$(basename $conf_file .$extension)
           if [ ! -z $extension ] && [ $extension == "conf" ]; then
               conf_menu
+          elif [ ! -z $fullname ] && [ $fullname == "menus" ]; then
+              for menu in $subfolder/menus/*; do
+                  echo $menu
+                  fullname=$(basename $menu)
+                  extension=${fullname##*.}
+                  name=$(basename $menu .$extension)
+                  if [ ! -z $extension ] && [ $extension == "conf" ]; then
+                  conf_submenus
+                  fi
+              done
           fi
       done
   done

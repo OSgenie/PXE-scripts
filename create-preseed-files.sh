@@ -7,7 +7,8 @@ source preseed.configs/domain.config
 ## ADD LOGIC in generating preseeds as well as PXE menus
 # for default preseed
 # for server suite
-# change
+# change   d-i	pkgsel/upgrade	select safe-upgrade
+
 source preseed.configs/server-default.config
 
 cat > $http_preseed_root/uinstall << \
@@ -82,7 +83,7 @@ EOF
   d-i mirror/http/proxy string http://$server_ip:3142/
   # Additional Packages
   d-i debian-installer/allow_unauthenticated	string false
-  d-i	pkgsel/upgrade	select safe-upgrade
+  d-i	pkgsel/upgrade	select none
   d-i	pkgsel/language-packs	multiselect
   d-i	pkgsel/update-policy	select none
   d-i	pkgsel/updatedb	boolean true

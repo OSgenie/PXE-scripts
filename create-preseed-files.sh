@@ -7,8 +7,7 @@ source preseed.configs/domain.config
 ## ADD LOGIC in generating preseeds as well as PXE menus
 # for default preseed
 # for server suite
-# change   d-i	pkgsel/upgrade	select safe-upgrade
-
+# add hostname=$host_name domain=$local_domain to kernel append
 source preseed.configs/server-default.config
 
 cat > $http_preseed_root/uinstall << \
@@ -31,9 +30,6 @@ EOF
   d-i	netcfg/get_gateway	string $network_gateway
   d-i	netcfg/get_nameservers	string $dns_name_servers
   d-i	netcfg/confirm_static	boolean true
-  # Hostname
-  d-i netcfg/get_hostname string $host_name
-  d-i netcfg/get_domain string $local_domain 
   # This automatically creates a standard unencrypted partitioning scheme with seperate var.
   d-i partman-auto/disk string /dev/sda
   d-i partman-auto/method string lvm
@@ -107,7 +103,7 @@ EOF
   d-i mirror/http/proxy string http://$server_ip:3142/
   # Additional Packages
   d-i debian-installer/allow_unauthenticated	string false
-  d-i	pkgsel/upgrade	select none
+  d-i	pkgsel/upgrade	select safe-upgrade
   d-i	pkgsel/language-packs	multiselect
   d-i	pkgsel/update-policy	select none
   d-i	pkgsel/updatedb	boolean true

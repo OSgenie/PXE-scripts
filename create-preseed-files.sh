@@ -32,14 +32,14 @@ EOF
   d-i	netcfg/get_nameservers	string $dns_name_servers
   d-i	netcfg/confirm_static	boolean true
   # Hostname
-  d-i netcfg/hostname string $host_name
-  d-i netcfg/get_domain string $local_domain
-  # This automatically creates a standard unencrypted partitioning scheme with seperate /var.
+  d-i netcfg/get_hostname string $host_name
+  d-i netcfg/get_domain string $local_domain 
+  # This automatically creates a standard unencrypted partitioning scheme with seperate var.
   d-i partman-auto/disk string /dev/sda
   d-i partman-auto/method string lvm
+  d-i partman-lvm/confirm boolean true
   d-i partman-lvm/device_remove_lvm boolean true
   d-i partman-md/device_remove_md boolean true
-  d-i partman-lvm/confirm boolean true
   d-i partman-auto/expert_recipe string \\
   var_scheme :: \\
   1 1 1 free \\

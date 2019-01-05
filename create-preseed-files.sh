@@ -26,16 +26,20 @@ EOF
   d-i netcfg/disable_autoconfig boolean true
   d-i netcfg/dhcp_failed note
   d-i netcfg/dhcp_options select Configure network manually
-  d-i	netcfg/get_nameservers	string $dns_name_servers
   d-i	netcfg/get_ipaddress	string $ip_address
   d-i	netcfg/get_netmask	string $network_netmask
   d-i	netcfg/get_gateway	string $network_gateway
+  d-i	netcfg/get_nameservers	string $dns_name_servers
   d-i	netcfg/confirm_static	boolean true
-  # This automatically creates a standard unencrypted partitioning scheme.
+  # Hostname
+  d-i netcfg/hostname string $host_name
+  d-i netcfg/get_domain string $local_domain
+  # This automatically creates a standard unencrypted partitioning scheme with seperate /var.
   d-i partman-auto/disk string /dev/sda
   d-i partman-auto/method string lvm
   d-i partman-lvm/device_remove_lvm boolean true
   d-i partman-md/device_remove_md boolean true
+  d-i partman-lvm/confirm boolean true
   d-i partman-auto/expert_recipe string \\
   var_scheme :: \\
   1 1 1 free \\
@@ -51,7 +55,7 @@ EOF
   	filesystem{ ext2 } \\
   	mountpoint{ /boot } \\
     . \\
-  8000 6000 10000 \$default_filesystem \\
+  2000 3500 10000 \$default_filesystem \\
   	\$lvmok{ } \\
   	method{ format } \\
   	format{ } \\
@@ -65,7 +69,7 @@ EOF
   	method{ swap } \\
   	format{ } \\
     . \\
-  1000 10000 -1 \$default_filesystem \\
+  1000 1500 -1 \$default_filesystem \\
   	\$lvmok{ } \\
   	method{ format } \\
   	format{ } \\
@@ -119,6 +123,6 @@ EOF
   d-i	debian-installer/exit/halt	boolean false
   d-i	debian-installer/exit/poweroff	boolean false
   # Post System Installation Tasks
-#  d-i	pkgsel/include string byobu vim openssh-server git-core landscape-common
-#  byobu	byobu/launch-by-default boolean true
+  d-i	pkgsel/include string byobu vim openssh-server git-core landscape-common
+  byobu	byobu/launch-by-default boolean true
 EOF

@@ -31,18 +31,37 @@ EOF
   d-i	netcfg/confirm_static	boolean true
   # This automatically creates a standard unencrypted partitioning scheme.
   d-i partman-auto/disk string /dev/sda
-  d-i partman-auto/method string lvm
+  d-i partman-auto/method string regular
   d-i partman-lvm/device_remove_lvm boolean true
   d-i partman-md/device_remove_md boolean true
-  d-i partman-lvm/confirm boolean true
-  d-i partman-auto-lvm/guided_size string max
-  d-i partman-auto/choose_recipe select atomic
-  d-i partman/default_filesystem string ext4
+  d-i partman-auto/expert_recipe string \
+          unencrypted-install ::
+                  512 512 1024 ext2
+                         \$primary{ }
+                         \$bootable{ }
+                          method{ format }
+                          format{ }
+                          use_filesystem{ }
+                          filesystem{ ext4 }
+                          mountpoint{ /boot }
+                  .
+                  100% 512 200% linux-swap
+                         \$primary{ }
+                          method{ swap }
+                          format{ }
+                  .
+                  17408 100000000000 -1 ext4
+                         \$primary{ }
+                          method{ format }
+                          format{ }
+                          use_filesystem{ }
+                          filesystem{ ext4 }
+                          mountpoint{ / }
+                  .
+  d-i partman-auto/expert_recipe_file string /tmp/unencrypted-install
   d-i partman-partitioning/confirm_write_new_label boolean true
   d-i partman/choose_partition select finish
-  d-i partman/confirm boolean true
-  d-i partman/confirm_nooverwrite boolean true
-  # Time Settings
+  d-i partman/confirm boolean true  # Time Settings
   d-i clock-setup/utc boolean true
   d-i time/zone string US/Eastern
   d-i	clock-setup/ntp	boolean true

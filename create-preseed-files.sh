@@ -34,34 +34,36 @@ EOF
   d-i partman-auto/method string regular
   d-i partman-lvm/device_remove_lvm boolean true
   d-i partman-md/device_remove_md boolean true
-  d-i partman-auto/expert_recipe string \
-          unencrypted-install ::
-                  512 512 1024 ext2
-                         \$primary{ }
-                         \$bootable{ }
-                          method{ format }
-                          format{ }
-                          use_filesystem{ }
-                          filesystem{ ext4 }
-                          mountpoint{ /boot }
+  d-i partman-auto/expert_recipe string \\
+          unencrypted-install ::  \\
+                  512 512 1024 ext2 \\
+                         \$primary{ } \\
+                         \$bootable{ } \\
+                          method{ format } \\
+                          format{ } \\
+                          use_filesystem{ } \\
+                          filesystem{ ext4 } \\
+                          mountpoint{ /boot } \\
+                  . \\
+                  100% 512 200% linux-swap \\
+                         \$primary{ } \\
+                          method{ swap } \\
+                          format{ } \\
+                  . \\
+                  17408 100000000000 -1 ext4 \\
+                         \$primary{ } \\
+                          method{ format } \\
+                          format{ } \\
+                          use_filesystem{ } \\
+                          filesystem{ ext4 } \\
+                          mountpoint{ / } \\
                   .
-                  100% 512 200% linux-swap
-                         \$primary{ }
-                          method{ swap }
-                          format{ }
-                  .
-                  17408 100000000000 -1 ext4
-                         \$primary{ }
-                          method{ format }
-                          format{ }
-                          use_filesystem{ }
-                          filesystem{ ext4 }
-                          mountpoint{ / }
-                  .
-  d-i partman-auto/expert_recipe_file string /tmp/unencrypted-install
+  #d-i partman-auto/expert_recipe_file string /tmp/unencrypted-install
   d-i partman-partitioning/confirm_write_new_label boolean true
   d-i partman/choose_partition select finish
-  d-i partman/confirm boolean true  # Time Settings
+  d-i partman/confirm boolean true
+  d-i partman/confirm_nooverwrite boolean true  
+  # Time Settings
   d-i clock-setup/utc boolean true
   d-i time/zone string US/Eastern
   d-i	clock-setup/ntp	boolean true

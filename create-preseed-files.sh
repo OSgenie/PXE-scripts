@@ -21,6 +21,8 @@ EOF
   d-i	console-setup/layoutcode	string us
   d-i	console-setup/variantcode	string
   # Network Settings
+  d-i partman/early_command \
+    string kill-all-dhcp; netcfg
   d-i netcfg/disable_autoconfig boolean true
   d-i netcfg/dhcp_failed note
   d-i netcfg/dhcp_options select Configure network manually
@@ -31,38 +33,51 @@ EOF
   d-i	netcfg/confirm_static	boolean true
   # This automatically creates a standard unencrypted partitioning scheme.
   d-i partman-auto/disk string /dev/sda
-  d-i partman-auto/method string regular
+  d-i partman-auto/method string lvm
   d-i partman-lvm/device_remove_lvm boolean true
   d-i partman-md/device_remove_md boolean true
   d-i partman-auto/expert_recipe string \\
-          unencrypted-install ::  \\
-                  512 512 1024 ext2 \\
-                         \$primary{ } \\
-                         \$bootable{ } \\
-                          method{ format } \\
-                          format{ } \\
-                          use_filesystem{ } \\
-                          filesystem{ ext4 } \\
-                          mountpoint{ /boot } \\
-                  . \\
-                  100% 512 200% linux-swap \\
-                         \$primary{ } \\
-                          method{ swap } \\
-                          format{ } \\
-                  . \\
-                  17408 100000000000 -1 ext4 \\
-                         \$primary{ } \\
-                          method{ format } \\
-                          format{ } \\
-                          use_filesystem{ } \\
-                          filesystem{ ext4 } \\
-                          mountpoint{ / } \\
-                  .
-  #d-i partman-auto/expert_recipe_file string /tmp/unencrypted-install
+  var_scheme :: \\
+  1 1 1 free \\
+  	\$iflabel{ gpt } \\
+  	\$reusemethod{ } \\
+  	method{ biosgrub } \\
+    . \\
+  128 512 256 ext2 \\
+  	\$defaultignore{ } \\
+  	method{ format } \\
+  	format{ } \\
+  	use_filesystem{ } \\
+  	filesystem{ ext2 } \\
+  	mountpoint{ /boot } \\
+    . \\
+  8000 6000 10000 \$default_filesystem \\
+  	\$lvmok{ } \\
+  	method{ format } \\
+  	format{ } \\
+  	use_filesystem{ } \\
+  	\$default_filesystem{ } \\
+  	mountpoint{ / } \\
+    . \\
+  100% 512 200% linux-swap \\
+  	\$lvmok{ } \\
+  	\$reusemethod{ } \\
+  	method{ swap } \\
+  	format{ } \\
+    . \\
+  1000 10000 -1 \$default_filesystem \\
+  	\$lvmok{ } \\
+  	method{ format } \\
+  	format{ } \\
+  	use_filesystem{ } \\
+  	\$default_filesystem{ } \\
+  	mountpoint{ /var } \\
+    .
+  d-i partman/default_filesystem string ext4
   d-i partman-partitioning/confirm_write_new_label boolean true
   d-i partman/choose_partition select finish
   d-i partman/confirm boolean true
-  d-i partman/confirm_nooverwrite boolean true  
+  d-i partman/confirm_nooverwrite boolean true
   # Time Settings
   d-i clock-setup/utc boolean true
   d-i time/zone string US/Eastern

@@ -30,12 +30,10 @@ EOF
   d-i	netcfg/get_gateway	string $network_gateway
   d-i	netcfg/confirm_static	boolean true
   # This automatically creates a standard unencrypted partitioning scheme.
-  d-i partman-auto/init_automatically_partition select Manual
   d-i partman-auto/disk string /dev/sda
   d-i partman-auto/method string regular
   d-i partman-lvm/device_remove_lvm boolean true
   d-i partman-md/device_remove_md boolean true
-#  d-i partman-auto/choose_recipe select unencrypted-install
   d-i partman-auto/expert_recipe string \\
           unencrypted-install :: \\
                   1024 1024 1024 ext4 \\
@@ -44,7 +42,7 @@ EOF
                           use_filesystem{ } filesystem{ ext4 } \\
                           mountpoint{ /boot } \\
                   . \\
-                  2048 2048 2048 linux-swap \\
+                  150% 150% 150% linux-swap \\
                           \$primary{ } \\
                           method{ swap } format{ } \\
                   . \\
@@ -54,7 +52,6 @@ EOF
                           use_filesystem{ } filesystem{ ext4 } \\
                           mountpoint{ / } \\
                   .
-  d-i partman-md/confirm boolean true
   d-i partman-partitioning/confirm_write_new_label boolean true
   d-i partman/choose_partition select finish
   d-i partman/confirm boolean true

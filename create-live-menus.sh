@@ -57,7 +57,7 @@ cat >> $menupath << EOM
 LABEL $revdate
 MENU LABEL $revdate
     kernel $kernelpath/$distro_kernel
-    append initrd=$kernelpath/$distro_ram_disk noprompt boot=casper url=$seed_path/$seed_file netboot=nfs root=/dev/nfs nfsroot=$nfs_root_path/$distro/$revision ro toram -
+    append initrd=$kernelpath/$distro_ram_disk boot=casper url=$seed_path/$seed_file netboot=nfs root=/dev/nfs nfsroot=$nfs_root_path/$distro/$revision ro quiet splash --
 EOM
 }
 

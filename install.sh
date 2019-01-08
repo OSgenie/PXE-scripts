@@ -17,7 +17,6 @@ function install_config_source_local_bin ()
 	server_ip=$(/sbin/ifconfig eth0 | grep 'inet addr' | cut -d: -f2 | awk '{print $1}')
 	tftp_folder=/var/lib/tftpboot
 	nfs_server=\$server_ip
-	seed_path=http://\$server_ip/preseed
 EOF
 }
 

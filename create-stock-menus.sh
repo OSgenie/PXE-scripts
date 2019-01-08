@@ -6,6 +6,7 @@ source $scriptdir/pxe.config
 
 nfs_path=$nfs_server:/pxeboot
 nfs_root_path=$nfs_server:/pxeboot/stock
+seed_path=http://\$server_ip/preseed
 seed_file="ubuntu.seed"
 
 function check_for_sudo ()
